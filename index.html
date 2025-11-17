@@ -1,1 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Civil Engineering – Pythagoras & Basic Trigonometry (Right Triangles • Symbols + Big Dimensions)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    :root{
+      --accent:#6a5cff;
+      --accent2:#00c2ff;
+      --ink:#0f172a;
+      --muted:#55607a;
+      --success:#2e7d32;
+      --error:#e53935;
+      --surface:#ffffff;
+      --field-w:11rem;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
+      margin:0;color:var(--ink);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, #dfe8ff, transparent 60%),
+        radial-gradient(1200px 600px at 110% 10%, #ccfbff, transparent 60%),
+        linear-gradient(180deg,#f5f8ff 0%, #f0fbff 50%, #eef3ff 100%);
+    }
+    h1{
+      margin:0.7rem 0 0.4rem;text-align:center;
+      font-size:1.6rem;font-weight:900;
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+      letter-spacing:.2px
+    }
+    p.lede{max-width:980px;margin:0.2rem auto 0.6rem;text-align:center;color:#1f2a44}
 
+    .logo{position:absolute;top:10px;left:10px;width:110px;height:auto;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.15)}
+
+    /* Top bar */
+    .topbar{
+      max-width:980px;margin:0.15rem auto 0.65rem;display:flex;gap:0.6rem;
+      justify-content:space-between;align-items:center;padding:0 0.6rem
+    }
+    .badge{
+      background:#fff;border:1px solid rgba(106,92,255,.25);border-radius:14px;
+      padding:0.5rem 0.7rem;font-weight:800;min-width:120px;text-align:center;
+      box-shadow:0 3px 10px rgba(106,92,255,.08)
+    }
+    .badge small{display:block;font-weight:600;color:var(--muted);margin-top:2px;font-size:.82rem}
+    .top-actions{display:flex;gap:0.45rem;align-items:center}
+    .fsBtn{
+      border:1px solid rgba(0,194,255,.5);background:linear-gradient(180deg,#ffffff,#f3fcff);
+      border-radius:12px;padding:.55rem .8rem;font-weight:900;cursor:pointer;color:#0b3d4a;
+      box-shadow:0 3px 10px rgba(0,194,255,.15)
+    }
+    .fsBtn:hover{background:#ecfbff}
+
+    /* Card */
+    .card{
+      max-width:980px;margin:0.25rem auto;background:var(--surface);border-radius:16px;
+      border:2px solid rgba(106,92,255,.35);
+      box-shadow:0 12px 30px rgba(106,92,255,.12), 0 6px 14px rgba(0,0,0,.06);
+      padding:0.95rem
+    }
+    .titleRow{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem}
+    .qTitle{font-size:1.15rem;font-weight:900;color:#2c3477;margin:0.1rem 0}
+    .qMeta{color:var(--muted);font-size:.95rem}
+
+    .statement{font-size:1.5rem;margin:0.55rem 0 0.7rem;line-height:1.35}
+    .statement b{font-weight:900}
+    details{border:1px solid rgba(106,92,255,.3);border-radius:12px;margin:0.5rem 0;background:#fbfcff}
+    summary{cursor:pointer;font-weight:900;color:#2c3477;padding:0.6rem 0.8rem;list-style:none}
+    summary::-webkit-details-marker{display:none}
+    .hint{padding:0 0.9rem 0.85rem;font-size:1rem;color:#1f2a44}
+
+    /* Inputs */
+    .io{display:grid;gap:0.8rem;margin-top:0.5rem}
+    .row{display:grid;grid-template-columns:1.2fr auto auto auto 1fr;align-items:center;gap:.6rem}
+    .row label{font-weight:900;color:#1f2a44;font-size:1.05rem}
+    .unit{
+      background:linear-gradient(180deg,#eef4ff,#f7fbff);
+      border:1px solid rgba(0,194,255,.35);
+      color:#173a56;border-radius:10px;padding:0.35rem 0.6rem;font-weight:900;min-width:6.5rem;text-align:center
+    }
+    .num{
+      width:var(--field-w);text-align:center;border:1px solid rgba(106,92,255,.45);
+      border-radius:10px;font-size:1.02rem;padding:.48rem .4rem;background:linear-gradient(180deg,#ffffff,#f6f7ff);
+      box-shadow:inset 0 1px 2px rgba(0,0,0,.06)
+    }
+    .num:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(106,92,255,.18)}
+
+    /* Markers & feedback */
+    .marker{font-size:1.45rem;font-weight:900;min-width:1.9rem;text-align:center}
+    .ok{color:var(--success); animation:pop .25s ease-out}
+    .no{color:var(--error)}
+    @keyframes pop { 0%{transform:scale(0.85)} 100%{transform:scale(1)} }
+    .feedback{font-size:0.95rem;color:#1f2a44}
+    .feedback .ans{font-weight:900}
+
+    /* Controls */
+    .controls{display:flex;justify-content:center;gap:.6rem;margin-top:0.75rem;flex-wrap:wrap}
+    button.primary{
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      color:#fff;border:none;border-radius:12px;padding:.7rem 1.2rem;font-weight:900;cursor:pointer;
+      box-shadow:0 8px 18px rgba(106,92,255,.25)
+    }
+    button.secondary{
+      background:#111827;color:#fff;border:none;border-radius:12px;padding:.7rem 1.2rem;font-weight:900;cursor:pointer
+    }
+    button.ghost{
+      background:linear-gradient(180deg,#ffffff,#f7f9ff);border:1px solid rgba(17,24,39,.25);
+      border-radius:12px;padding:.6rem 1rem;font-weight:900;cursor:pointer;color:#111827
+    }
+    button:disabled{opacity:.6;cursor:not-allowed}
+    #progress{font-weight:900;text-align:center;color:#111827;margin:0.15rem 0 0.6rem}
+
+    /* Start modal */
+    .modal{position:fixed;inset:0;background:rgba(15,23,42,.35);display:flex;align-items:center;justify-content:center;padding:1rem;z-index:999}
+    .panel{
+      background:linear-gradient(180deg,#ffffff,#f7f8ff);
+      border-radius:16px;max-width:780px;width:100%;
+      box-shadow:0 18px 40px rgba(17,24,39,.25);border:2px solid rgba(106,92,255,.35)
+    }
+    .panel header{padding:0.9rem 1rem;border-bottom:1px solid rgba(106,92,255,.25)}
+    .panel header h2{margin:0;color:#2c3477}
+    .panel .content{padding:1rem;display:grid;gap:0.9rem}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem}
+    .field{display:grid;gap:0.35rem}
+    .field input[type=text], .field input[type=number], .field select{
+      padding:0.55rem .6rem;border:1px solid rgba(106,92,255,.4);border-radius:10px;background:#fff
+    }
+    .choiceRow{display:flex;gap:.75rem;align-items:center;flex-wrap:wrap}
+    .pill{border:1px solid rgba(106,92,255,.45);padding:.35rem .7rem;border-radius:999px;cursor:pointer;font-weight:900;background:#fff}
+    .pill input{margin-right:.35rem}
+    .panel footer{display:flex;justify-content:space-between;align-items:center;padding:0.85rem 1rem;border-top:1px solid rgba(106,92,255,.25)}
+    .muted{color:var(--muted);font-size:.95rem}
+
+    /* End screen */
+    #endCard{max-width:820px;margin:1rem auto;padding:1rem;border-radius:14px;background:#fff;border:2px solid #2e7d32;display:none}
+    #endCard h3{margin-top:0;color:#1e7a31}
+    .wellDone{display:inline-block;background:#eaf7ec;border:1px solid #b9e2bf;color:#1e7a31;padding:.25rem .5rem;border-radius:8px;font-weight:900}
+
+    /* Figures (SVG) – larger */
+    .fig{max-width:820px;width:100%;height:auto;display:block;margin:.5rem auto;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,.08);background:#fff}
+  </style>
+</head>
+<body>
+  <img src="https://lirp.cdn-website.com/b085c470/dms3rep/multi/opt/Bucks%2BCollege%2BGroup-e5af1b68-1920w.jpg"
+       alt="Bucks College Group logo" class="logo">
+
+  <h1>Pythagoras &amp; Basic Trigonometry — Right Triangles (Civil Engineering)</h1>
+  <p class="lede">Right‑angle geometry for ramps, stays, reach and set‑out. <strong>Right‑angled triangles only.</strong> All answers to <strong>2 dp</strong>. Angle values are stated in the question text; the diagram shows symbols only.</p>
+
+  <div class="topbar">
+    <div style="display:flex;gap:0.6rem;align-items:center">
+      <div class="badge" id="who"><span id="whoName">Student</span><small>Participant</small></div>
+      <div class="badge" id="mode"><span id="modeTxt">Timed</span><small>Mode</small></div>
+      <div class="badge" id="timer"><span id="timeTxt">—</span><small>Timer</small></div>
+      <div class="badge" id="scoreTop"><span id="scoreTopVal">0 / 0</span><small>Score</small></div>
+    </div>
+    <div class="top-actions">
+      <button class="fsBtn" id="fsBtn" title="Toggle full screen">⛶ Full screen</button>
+    </div>
+  </div>
+
+  <!-- Quick refresher only -->
+  <div class="card" id="globalHint">
+    <details open>
+      <summary>Quick refresher (formulas)</summary>
+      <div class="hint">
+        <ul>
+          <li><strong>Pythagoras:</strong> \(a^2+b^2=c^2\) (hypotenuse \(c\)).</li>
+          <li><strong>Basic trigonometry:</strong> \(\sin\theta=\frac{\text{opp}}{\text{hyp}},\ \cos\theta=\frac{\text{adj}}{\text{hyp}},\ \tan\theta=\frac{\text{opp}}{\text{adj}}\).</li>
+          <li><strong>Rearrange as needed.</strong> Round final answers to <strong>2 dp</strong>.</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+
+  <!-- Question card -->
+  <div class="card" id="qCard" style="display:none">
+    <div class="titleRow">
+      <div>
+        <div class="qTitle" id="qTitle">Question</div>
+        <div class="qMeta">Use the to‑scale diagram. Enter each requested value to <strong>2 dp</strong>, then click <strong>Check</strong>.</div>
+      </div>
+      <div class="qMeta" id="progress">Question 1</div>
+    </div>
+
+    <div class="statement" id="statement"></div>
+
+    <!-- No formula tab by request -->
+
+    <details id="whyBox">
+      <summary>Why this matters (click to expand)</summary>
+      <div class="hint" id="whyHtml"></div>
+    </details>
+
+    <div class="io" id="io"></div>
+
+    <div class="controls">
+      <button class="primary" id="checkBtn">Check</button>
+      <button class="ghost" id="nextBtn" disabled>Next</button>
+      <button class="secondary" id="newBtn">New questions</button>
+    </div>
+  </div>
+
+  <!-- End summary -->
+  <div id="endCard">
+    <h3>Summary</h3>
+    <p class="wellDone" id="endMsg"></p>
+    <ul>
+      <li><strong>Name:</strong> <span id="sumName"></span></li>
+      <li><strong>Mode:</strong> <span id="sumMode"></span></li>
+      <li><strong>Score:</strong> <span id="sumScore"></span></li>
+      <li><strong>Time used:</strong> <span id="sumTime"></span></li>
+    </ul>
+    <div style="display:flex;gap:.6rem;justify-content:center;margin-top:.4rem">
+      <button class="secondary" id="restartBtn">Restart</button>
+    </div>
+  </div>
+
+  <!-- Start menu modal -->
+  <div class="modal" id="startModal">
+    <div class="panel">
+      <header><h2>Start Worksheet</h2></header>
+      <div class="content">
+        <div class="field">
+          <label for="nameInput"><strong>Your name</strong></label>
+          <input id="nameInput" type="text" placeholder="Type your name…" autocomplete="name">
+        </div>
+
+        <div class="field">
+          <label><strong>Mode</strong></label>
+          <div class="choiceRow">
+            <label class="pill"><input type="radio" name="mode" value="timed" checked>Timed</label>
+            <label class="pill"><input type="radio" name="mode" value="target">Target</label>
+          </div>
+        </div>
+
+        <div class="grid2">
+          <div class="field" id="timedField" style="display:block">
+            <label><strong>Time limit</strong></label>
+            <div class="choiceRow">
+              <label class="pill"><input type="radio" name="tlimit" value="600">10 minutes</label>
+              <label class="pill"><input type="radio" name="tlimit" value="1200" checked>20 minutes</label>
+              <label class="pill"><input type="radio" name="tlimit" value="1800">30 minutes</label>
+              <label class="pill"><input type="radio" name="tlimit" value="0">Unlimited</label>
+            </div>
+          </div>
+
+          <div class="field" id="targetField" style="display:none">
+            <label for="targetInput"><strong>Target (correct answers to finish)</strong></label>
+            <input id="targetInput" type="number" min="1" max="1000" step="1" value="10">
+          </div>
+        </div>
+
+        <div class="grid2">
+          <div class="field">
+            <label for="qtyInput"><strong>Total questions (per set)</strong></label>
+            <select id="qtyInput">
+              <option value="8">8</option>
+              <option value="10" selected>10</option>
+              <option value="12">12</option>
+              <option value="15">15</option>
+            </select>
+          </div>
+          <div class="field">
+            <div class="muted">Diagrams are to scale. Symbols show angle positions only (values are stated in the text). Answers to <strong>2 dp</strong>.</div>
+          </div>
+        </div>
+      </div>
+      <footer>
+        <span class="muted">You can generate a fresh random set any time.</span>
+        <div>
+          <button class="primary" id="startBtn">Start worksheet</button>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <div id="errBanner" style="display:none;position:fixed;bottom:10px;left:50%;transform:translateX(-50%);
+    background:#fee;border:2px solid #e53935;color:#7f1d1d;padding:.5rem .8rem;border-radius:10px;font-weight:800;z-index:2000"></div>
+  <noscript><div style="margin:1rem auto;max-width:980px;color:#b91c1c;background:#fee;border:2px solid #e11d48;padding:.6rem;border-radius:12px;font-weight:800">This worksheet needs JavaScript enabled.</div></noscript>
+
+<script>
+'use strict';
+
+window.addEventListener('error', (e) => {
+  const b = document.getElementById('errBanner');
+  b.textContent = 'Error: ' + (e.message || 'Unknown script error');
+  b.style.display = 'block';
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+
+  /* ========= Helpers ========= */
+  const rnd=(m,M)=>Math.floor(Math.random()*(M-m+1))+m;
+  const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+  const rndf=(min,max,dp=2)=>+((Math.random()*(max-min)+min).toFixed(dp));
+  const round2=x=>Math.round((+x + Number.EPSILON)*100)/100;
+  const to2=x=>isFinite(x)?round2(x).toFixed(2):'—';
+  const parseNum = (input) => {
+    const raw = (typeof input === 'string' ? input : (input?.value ?? '')).toString().trim().replace(',','.');
+    const x = parseFloat(raw);
+    return isFinite(x)?x:NaN;
+  };
+  const deg = r=>r*180/Math.PI;
+  const rad = d=>d*Math.PI/180;
+  const eq2dp=(a,b)=>isFinite(a)&&isFinite(b)&&round2(a)===round2(b);
+  const secsToMMSS=s=>{const m=Math.floor(s/60), ss=String(s%60).padStart(2,'0'); return `${m}:${ss}`;};
+
+  const unit = (u) => ({ m:'m', deg:'°' }[u]||u);
+
+  /* ========= SVG core (larger, symbols only inside; labels offset) ========= */
+  function figWrap(viewW, viewH, inner){
+    return `<svg class="fig" viewBox="0 0 ${viewW} ${viewH}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="diagram">
+      <defs>
+        <style>
+          .tri{stroke:#1f2a44;stroke-width:2}
+          .tri.c1{fill:rgba(106,92,255,.24)}     /* purple */
+          .tri.c2{fill:rgba(0,194,255,.22)}      /* cyan */
+          .tri.c3{fill:rgba(255,159,67,.22)}     /* orange */
+          .tri.c4{fill:rgba(34,197,94,.22)}      /* green */
+          .tri.c5{fill:rgba(236,72,153,.22)}     /* pink */
+          .tri.c6{fill:rgba(14,165,233,.22)}     /* sky */
+          .tri.c7{fill:rgba(250,204,21,.22)}     /* amber */
+
+          .aux{stroke:#334155;stroke-dasharray:6 4;stroke-width:2;fill:none}
+          .tick{stroke:#1f2a44;stroke-width:2}
+          .dim{
+            font:700 21px/1 Inter, system-ui;  /* ≈ +50% */
+            fill:#0f172a;
+            paint-order:stroke fill; stroke:#ffffff; stroke-width:3px;
+          }
+          .ang{
+            font:800 26px/1.1 Inter, system-ui; /* symbols a bit larger */
+            fill:#1e2a66;
+            paint-order:stroke fill; stroke:#ffffff; stroke-width:3.5px;
+          }
+          .label{font:800 16px/1 Inter, system-ui; fill:#2c3477; paint-order:stroke fill; stroke:#fff; stroke-width:1.5px;}
+          .ra{fill:#ffffff;stroke:#1f2a44;stroke-width:2}
+        </style>
+      </defs>
+      ${inner}
+    </svg>`;
+  }
+
+  // Ensure triangle fits area; enforce minimum base width in px
+  function scaleToBoxMin(run, rise, maxW=560, maxH=320, minBasePx=340){
+    let s = Math.min(maxW/Math.max(run,1e-6), maxH/Math.max(rise,1e-6));
+    const base1 = run*s, height1 = rise*s;
+    if(base1 < minBasePx){
+      const sTry = minBasePx/Math.max(run,1e-6);
+      if(rise*sTry <= maxH && minBasePx <= maxW){ s = sTry; }
+    }
+    return { base: run*s, height: rise*s };
+  }
+  const insetFor = lenPx => clamp(lenPx*0.12, 12, 30);
+
+  // Base dimension with extensions/ticks; TEXT OFFSET so it does not sit on the dashed line
+  function dimBase(x0,y0,x1,label){
+    const L=x1-x0, inset=insetFor(L), off=46, ext=26, dimY=y0+off;
+    return `
+      <line x1="${x0}" y1="${y0}" x2="${x0}" y2="${dimY+ext}" class="aux"/>
+      <line x1="${x1}" y1="${y0}" x2="${x1}" y2="${dimY+ext}" class="aux"/>
+      <line x1="${x0+inset}" y1="${dimY}" x2="${x1-inset}" y2="${dimY}" class="aux"/>
+      <line x1="${x0+inset}" y1="${dimY-7}" x2="${x0+inset}" y2="${dimY+7}" class="tick"/>
+      <line x1="${x1-inset}" y1="${dimY-7}" x2="${x1-inset}" y2="${dimY+7}" class="tick"/>
+      ${label?`<text x="${(x0+x1)/2}" y="${dimY+18}" text-anchor="middle" dominant-baseline="hanging" class="dim">${label}</text>`:''}
+    `;
+  }
+
+  // Rise dimension to the right; TEXT OFFSET to the right (no overlap with dashed line)
+  function dimRise(x1,y1,y2,label){
+    const H=y1-y2, inset=insetFor(H), off=44, ext=26, dimX=x1+off, top=y2, bot=y1;
+    const yTop=top+inset, yBot=bot-inset;
+    return `
+      <line x1="${x1}" y1="${bot}" x2="${dimX+ext}" y2="${bot}" class="aux"/>
+      <line x1="${x1}" y1="${top}" x2="${dimX+ext}" y2="${top}" class="aux"/>
+      <line x1="${dimX}" y1="${yTop}" x2="${dimX}" y2="${yBot}" class="aux"/>
+      <line x1="${dimX-7}" y1="${yTop}" x2="${dimX+7}" y2="${yTop}" class="tick"/>
+      <line x1="${dimX-7}" y1="${yBot}" x2="${dimX+7}" y2="${yBot}" class="tick"/>
+      ${label?`<text x="${dimX+18}" y="${(yTop+yBot)/2}" text-anchor="start" dominant-baseline="middle" class="dim">${label}</text>`:''}
+    `;
+  }
+
+  // Hypotenuse dimension parallel to edge; TEXT OFFSET away from dashed line along outward normal
+  function dimHyp(Ax,Ay,Bx,By,Cx,Cy,label){
+    if(!label) return '';
+    const dx=Cx-Ax, dy=Cy-Ay, L=Math.hypot(dx,dy)||1;
+    const tx=dx/L, ty=dy/L;
+    const nx=-ty, ny=tx;
+    const Gx=(Ax+Bx+Cx)/3, Gy=(Ay+By+Cy)/3;
+    const Mx=(Ax+Cx)/2,  My=(Ay+Cy)/2;
+    const dot = (nx*(Mx-Gx) + ny*(My-Gy));
+    const nOutX = (dot>=0? nx : -nx), nOutY=(dot>=0? ny : -ny);
+
+    const inset=insetFor(L), off=36, ext=26;
+    const P1x=Ax + nOutX*off + tx*inset, P1y=Ay + nOutY*off + ty*inset;
+    const P2x=Cx + nOutX*off - tx*inset, P2y=Cy + nOutY*off - ty*inset;
+
+    const EA1x1=Ax + nOutX*2, EA1y1=Ay + nOutY*2;
+    const EA1x2=Ax + nOutX*(off+ext), EA1y2=Ay + nOutY*(off+ext);
+    const EA2x1=Cx + nOutX*2, EA2y1=Cy + nOutY*2;
+    const EA2x2=Cx + nOutX*(off+ext), EA2y2=Cy + nOutY*(off+ext);
+
+    const midx=(P1x+P2x)/2, midy=(P1y+P2y)/2;
+    const angle = Math.atan2(P2y-P1y, P2x-P1x)*180/Math.PI;
+
+    const labOff=18;  // push text away from the dashed line
+    const lx = midx + nOutX*labOff;
+    const ly = midy + nOutY*labOff;
+
+    return `
+      <line x1="${EA1x1}" y1="${EA1y1}" x2="${EA1x2}" y2="${EA1y2}" class="aux"/>
+      <line x1="${EA2x1}" y1="${EA2y1}" x2="${EA2x2}" y2="${EA2y2}" class="aux"/>
+      <line x1="${P1x}" y1="${P1y}" x2="${P2x}" y2="${P2y}" class="aux"/>
+      <text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle"
+        class="dim" transform="rotate(${angle} ${lx} ${ly})">${label}</text>
+    `;
+  }
+
+  // Angle symbol at base-left A (always inside along bisector)
+  function angleSymbolA(x0,y0, basePx, risePx, sym='θ'){
+    if(!sym) return '';
+    const L=Math.hypot(basePx,risePx)||1;
+    const uBaseX=1, uBaseY=0;
+    const uHypX=basePx/L, uHypY=-risePx/L;
+    let bx=uBaseX+uHypX, by=uBaseY+uHypY; const bL=Math.hypot(bx,by)||1; bx/=bL; by/=bL;
+    const d=clamp(Math.min(basePx,risePx)*0.33, 26, 56);
+    const lx = x0 + bx*d, ly = y0 + by*d;
+    return `<text x="${lx}" y="${ly}" class="ang">${sym}</text>`;
+  }
+
+  // Angle symbol at top-right C (always inside)
+  function angleSymbolC(x2,y2, basePx, risePx, sym='φ'){
+    if(!sym) return '';
+    const L=Math.hypot(basePx,risePx)||1;
+    const uDownX=0, uDownY=1;
+    const uToA_X = -(basePx)/L, uToA_Y = (risePx)/L;
+    let bx=uDownX+uToA_X, by=uDownY+uToA_Y; const bL=Math.hypot(bx,by)||1; bx/=bL; by/=bL;
+    const d=clamp(Math.min(basePx,risePx)*0.30, 24, 52);
+    const lx = x2 + bx*d, ly = y2 + by*d;
+    return `<text x="${lx}" y="${ly}" class="ang">${sym}</text>`;
+  }
+
+  function pickTriClass(){ return 'c' + rnd(1,7); }
+  function pickAltGreek(){ return ['φ','α','β','γ','δ','ψ'][rnd(0,5)]; }
+
+  /**
+   * Draw right triangle A(x0,y0)->B(x1,y1) base, up to C(x2,y2).
+   * Right angle at B (square). Only symbols (no numeric angles) inside the triangle.
+   */
+  function svgRightTriangle(runVal, riseVal, opts={}){
+    const { angleASym='θ', angleCSym='φ', showRunTxt='', showRiseTxt='', showHypTxt='', caption='Right triangle', triClass='c1' } = opts;
+    const w=860, h=540;           // larger SVG canvas
+    const padL=110, padB=400;     // generous bottom pad for base dimension
+    const { base, height } = scaleToBoxMin(runVal, riseVal, 560, 320, 340);
+    const x0=padL, y0=padB;          // A
+    const x1=x0+base, y1=y0;         // B
+    const x2=x1,     y2=y0-height;   // C
+
+    // right-angle square at B
+    const ra=18; const raPoly=`${x1-ra},${y1} ${x1-ra},${y1-ra} ${x1},${y1-ra} ${x1},${y1}`;
+
+    const inner=`
+      <text x="${w/2}" y="30" text-anchor="middle" class="label">${caption}</text>
+      <polygon points="${x0},${y0} ${x1},${y1} ${x2},${y2}" class="tri ${triClass}"/>
+      <polygon points="${raPoly}" class="ra"/>
+      ${angleSymbolA(x0,y0, base, height, angleASym)}
+      ${angleSymbolC(x2,y2, base, height, angleCSym)}
+      ${dimBase(x0,y0,x1, showRunTxt)}
+      ${dimRise(x1,y1,y2, showRiseTxt)}
+      ${dimHyp(x0,y0,x1,y1,x2,y2, showHypTxt)}
+    `;
+    return figWrap(w,h,inner);
+  }
+
+  /* ========= Multi-answer IO builder ========= */
+  function buildIORows(parts){
+    const io = document.getElementById('io');
+    io.innerHTML = '';
+    parts.forEach((p,i) => {
+      const row = document.createElement('div');
+      row.className = 'row';
+      row.innerHTML = `
+        <label>${p.prompt}</label>
+        <input class="num" id="ans-${i}" type="text" inputmode="decimal" autocomplete="off" placeholder="e.g. 12.34">
+        <span class="unit">${unit(p.unit)}</span>
+        <span class="marker" id="mark-${i}"></span>
+        <span class="feedback" id="fb-${i}"></span>
+      `;
+      io.appendChild(row);
+    });
+    io.querySelectorAll('input.num').forEach(inp=>{
+      inp.addEventListener('blur', ()=>{
+        const x = parseNum(inp.value);
+        if(isFinite(x)) inp.value = to2(x);
+      });
+    });
+  }
+
+  /* ========= Question generators (ALL require both trig + Pythagoras, 2 parts each) ========= */
+
+  // 1) Access ramp: θ and slope, given run & rise
+  function qRamp_theta_and_slope_from_run_rise(){
+    const run = rndf(3.5, 9.0, 2);
+    const rise = rndf(0.4, Math.min(1.6, run*0.45), 2);
+    const theta = deg(Math.atan(rise/run));
+    const phi = 90 - theta;
+    const slope = Math.sqrt(run*run + rise*rise);
+    const alt = pickAltGreek();
+    return {
+      title:'Access ramp – find θ and slope from run & rise',
+      statementHTML:[
+        `A temporary access ramp rises <b>${rise.toFixed(2)} m</b> over a horizontal run of <b>${run.toFixed(2)} m</b>.`,
+        `Angle symbols: <b>θ</b> at the base‑left corner and <b>${alt}</b> at the top‑right corner.`,
+        `Enter <b>θ</b> and the <b>slope length</b>.`
+      ].join('<br>'),
+      whyHTML:`<ul>
+        <li>Confirm gradients for anti‑slip and access before timbering or pouring.</li>
+        <li>Checks plant access, wheel stop positions and handrail set‑out.</li>
+        <li>Avoids rework by matching the temporary works permit conditions.</li>
+      </ul>`,
+      diagram: svgRightTriangle(run, rise, {
+        angleASym:'θ', angleCSym:alt,
+        showRunTxt: run.toFixed(2)+' m',
+        showRiseTxt: rise.toFixed(2)+' m',
+        showHypTxt: '',
+        caption:'Access ramp (to scale)',
+        triClass: pickTriClass()
+      }),
+      parts:[
+        { prompt:'Angle θ', unit:'deg', val: theta },
+        { prompt:'Slope length', unit:'m', val: slope }
+      ],
+      check(){ return {parts:this.parts}; }
+    };
+  }
+
+  // 2) Access ramp: run & slope, given θ & rise
+  function qRamp_run_and_slope_from_theta_rise(){
+    const theta = rndf(6, 18, 2);
+    const rise = rndf(0.30, 1.20, 2);
+    const run = rise / Math.tan(rad(theta));        // trig
+    const slope = Math.sqrt(run*run + rise*rise);   // Pythag
+    const alt = pickAltGreek();
+    return {
+      title:'Access ramp – find run and slope from θ & rise',
+      statementHTML:[
+        `The ramp angle is <b>θ = ${theta.toFixed(2)}°</b>.`,
+        `The ramp climbs <b>${rise.toFixed(2)} m</b>.`,
+        `Angle symbols: <b>θ</b> at the base‑left corner and <b>${alt}</b> at the top‑right corner.`,
+        `Enter the <b>run</b> and the <b>slope length</b>.`
+      ].join('<br>'),
+      whyHTML:`<ul>
+        <li>Run length fixes the footprint within hoarding lines and live carriageways.</li>
+        <li>Helps decide barrier positions and signage per the TMP.</li>
+        <li>Prevents clashes with service trenches and drainage channels.</li>
+      </ul>`,
+      diagram: svgRightTriangle(run, rise, {
+        angleASym:'θ', angleCSym:alt,
+        showRunTxt:'run = ?',
+        showRiseTxt: rise.toFixed(2)+' m',
+        showHypTxt: '',
+        caption:'Access ramp (to scale)',
+        triClass: pickTriClass()
+      }),
+      parts:[
+        { prompt:'Run', unit:'m', val: run },
+        { prompt:'Slope length', unit:'m', val: slope }
+      ],
+      check(){ return {parts:this.parts}; }
+    };
+  }
+
+  // 3) Mast stay: base & stay length from height & θ
+  function qMast_base_and_stay_from_height_theta(){
+    const height = rndf(6.0, 24.0, 2);
+    const theta = rndf(20, 55, 2);
+    const run = height / Math.tan(rad(theta));      // trig
+    const stay = Math.sqrt(run*run + height*height);// Pythag
+    const alt = pickAltGreek();
+    return {
+      title:'Mast stay – find base distance and stay length from height & θ',
+      statementHTML:[
+        `A mast is <b>${height.toFixed(2)} m</b> tall.`,
+        `The stay makes <b>θ = ${theta.toFixed(2)}°</b> to the ground.`,
+        `Angle symbols: <b>θ</b> at the base‑left corner and <b>${alt}</b> at the top‑right corner.`,
+        `Enter the <b>base distance</b> and the <b>stay length</b>.`
+      ].join('<br>'),
+      whyHTML:`<ul>
+        <li>Sets plate positions for ground anchors outside exclusion zones.</li>
+        <li>Ensures cable reels are cut to length with minimal waste.</li>
+        <li>Verifies the stay clears walkways and scaffold lifts.</li>
+      </ul>`,
+      diagram: svgRightTriangle(run, height, {
+        angleASym:'θ', angleCSym:alt,
+        showRunTxt:'base = ?',
+        showRiseTxt: height.toFixed(2)+' m',
+        showHypTxt:'stay = ?',
+        caption:'Mast & stay (to scale)',
+        triClass: pickTriClass()
+      }),
+      parts:[
+        { prompt:'Base distance', unit:'m', val: run },
+        { prompt:'Stay length', unit:'m', val: stay }
+      ],
+      check(){ return {parts:this.parts}; }
+    };
+  }
+
+  // 4) Mast height & θ from base & stay
+  function qMast_height_and_theta_from_base_stay(){
+    const base = rndf(4.0, 18.0, 2);
+    const stay = rndf(base+1.0, base+25.0, 2);
+    const height = Math.sqrt(Math.max(0, stay*stay - base*base)); // Pythag
+    const theta = deg(Math.atan(height/base));                    // trig
+    const alt = pickAltGreek();
+    return {
+      title:'Mast stay – find height and θ from base distance & stay',
+      statementHTML:[
+        `An anchor is <b>${base.toFixed(2)} m</b> from the mast base.`,
+        `The stay length to the mast top is <b>${stay.toFixed(2)} m</b>.`,
+        `Angle symbols: <b>θ</b> at the base‑left corner and <b>${alt}</b> at the top‑right corner.`,
+        `Enter the <b>height</b> and <b>θ</b>.`
+      ].join('<br>'),
+      whyHTML:`<ul>
+        <li>Confirms mast heights from supplied stays without climbing checks.</li>
+        <li>Useful when kit is mixed and nameplate data is missing.</li>
+        <li>Reduces time at height by solving geometry at ground level.</li>
+      </ul>`,
+      diagram: svgRightTriangle(base, height, {
+        angleASym:'θ', angleCSym:alt,
+        showRunTxt: base.toFixed(2)+' m',
+        showRiseTxt:'height = ?',
+        showHypTxt: stay.toFixed(2)+' m',
+        caption:'Mast & stay (to scale)',
+        triClass: pickTriClass()
+      }),
+      parts:[
+        { prompt:'Height', unit:'m', val: height },
+        { prompt:'Angle θ', unit:'deg', val: theta }
+      ],
+      check(){ return {parts:this.parts}; }
+    };
+  }
+
+  // 5) Crane jib: φ & reach from jib length & clearance height
+  function qCrane_phi_and_reach_from_jib_height(){
+    const jib = rndf(18, 55, 2);
+    const height = rndf(6, Math.min(jib-1, 40), 2);
+    const theta = deg(Math.asin(height/jib));       // trig
+    const run = Math.sqrt(jib*jib - height*height); // Pythag
+    const phi = 90 - theta;
+    const alt = pickAltGreek(); // we will still display alt at C while the question asks φ explicitly
+    return {
+      title:'Crane jib – find φ and reach from jib length & clearance height',
+      statementHTML:[
+        `The crane needs to clear <b>${height.toFixed(2)} m</b> using a jib of <b>${jib.toFixed(2)} m</b>.`,
+        `Angle symbols: <b>θ</b> at the base‑left corner and <b>φ</b> (top‑right).`,
+        `Enter <b>φ</b> and the <b>horizontal reach</b>.`
+      ].join('<br>'),
+      whyHTML:`<ul>
+        <li>Verifies if a shorter jib can be used to reduce radius and exclusion zones.</li>
+        <li>Checks hook path for façade work above parapets.</li>
+        <li>Feeds into lift planning, outrigger spread and traffic management.</li>
+      </ul>`,
+      diagram: svgRightTriangle(run, height, {
+        angleASym:'θ', angleCSym:'φ',
+        showRunTxt:'reach = ?',
+        showRiseTxt: height.toFixed(2)+' m',
+        showHypTxt: jib.toFixed(2)+' m',
+        caption:'Crane reach (to scale)',
+        triClass: pickTriClass()
+      }),
+      parts:[
+        { prompt:'Angle φ', unit:'deg', val: phi },
+        { prompt:'Horizontal reach', unit:'m', val: run }
+      ],
+      check(){ return {parts:this.parts}; }
+    };
+  }
+
+  // 6) Trench: strut & θ from width & depth (both)
+  function qTrench_strut_and_theta_from_width_depth(){
+    const width = rndf(1.2, 4.0, 2);
+    const depth = rndf(1.5, 5.0, 2);
+    const strut = Math.sqrt(width*width + depth*depth); // Pythag
+    const theta = deg(Math.atan(depth/width));          // trig
+    const alt = pickAltGreek();
+    return {
+      title:'Trench shoring – find strut length and θ from width & depth',
+      statementHTML:[
+        `A trench is <b>${width.toFixed(2)} m</b> wide and <b>${depth.toFixed(2)} m</b> deep.`,
+        `Angle symbols: <b>θ</b> at the base‑left corner and <b>${alt}</b> at the top‑right corner.`,
+        `Enter the <b>strut length</b> and <b>θ</b>.`
+      ].join('<br>'),
+      whyHTML:`<ul>
+        <li>Sets timber or proprietary strut cut lengths before excavation continues.</li>
+        <li>Ensures struts clear services while hitting engineered positions.</li>
+        <li>Supports safe systems of work around open excavations.</li>
+      </ul>`,
+      diagram: svgRightTriangle(width, depth, {
+        angleASym:'θ', angleCSym:alt,
+        showRunTxt: width.toFixed(2)+' m',
+        showRiseTxt: depth.toFixed(2)+' m',
+        showHypTxt:'strut = ?',
+        caption:'Trench section (to scale)',
+        triClass: pickTriClass()
+      }),
+      parts:[
+        { prompt:'Strut length', unit:'m', val: strut },
+        { prompt:'Angle θ', unit:'deg', val: theta }
+      ],
+      check(){ return {parts:this.parts}; }
+    };
+  }
+
+  // 7) Roof: rafter & rise from run & pitch θ
+  function qRoof_rafter_and_rise_from_run_pitch(){
+    const run = rndf(2.4, 6.0, 2);
+    const pitch = rndf(15, 40, 2); // θ
+    const rise = Math.tan(rad(pitch))*run;            // trig
+    const rafter = Math.sqrt(run*run + rise*rise);    // Pythag
+    const alt = pickAltGreek();
+    return {
+      title:'Roof truss – find rafter length and rise from run & pitch θ',
+      statementHTML:[
+        `Half‑span (run) is <b>${run.toFixed(2)} m</b>.`,
+        `Pitch angle is <b>θ = ${pitch.toFixed(2)}°</b>.`,
+        `Angle symbols: <b>θ</b> at the base‑left corner and <b>${alt}</b> at the top‑right corner.`,
+        `Enter the <b>rafter length</b> and the <b>rise</b>.`
+      ].join('<br>'),
+      whyHTML:`<ul>
+        <li>Generates cut lists and confirms stock lengths before ordering timber.</li>
+        <li>Checks eaves height and ridge line for planning conditions.</li>
+        <li>Avoids clashes with rooflights and M&amp;E penetrations.</li>
+      </ul>`,
+      diagram: svgRightTriangle(run, rise, {
+        angleASym:'θ', angleCSym:alt,
+        showRunTxt: run.toFixed(2)+' m',
+        showRiseTxt:'rise = ?',
+        showHypTxt:'rafter = ?',
+        caption:'Roof pitch (to scale)',
+        triClass: pickTriClass()
+      }),
+      parts:[
+        { prompt:'Rafter length', unit:'m', val: rafter },
+        { prompt:'Rise', unit:'m', val: rise }
+      ],
+      check(){ return {parts:this.parts}; }
+    };
+  }
+
+  // 8) Retaining wall: set‑back & slope from height & face angle θ
+  function qWall_setback_and_slope_from_height_theta(){
+    const height = rndf(2.0, 5.0, 2);
+    let theta, setback;
+    do{
+      theta = rndf(72, 83, 2);
+      setback = height / Math.tan(rad(theta)); // trig
+    }while(setback < 0.8);
+    const slope = Math.sqrt(setback*setback + height*height); // Pythag
+    const alt = pickAltGreek();
+    return {
+      title:'Retaining wall – find set‑back and slope from height & face angle θ',
+      statementHTML:[
+        `Wall height is <b>${height.toFixed(2)} m</b>.`,
+        `Face angle to ground is <b>θ = ${theta.toFixed(2)}°</b>.`,
+        `Angle symbols: <b>θ</b> at the base‑left corner and <b>${alt}</b> at the top‑right corner.`,
+        `Enter the <b>set‑back</b> and the <b>slope length</b>.`
+      ].join('<br>'),
+      whyHTML:`<ul>
+        <li>Controls toe positions to avoid boundary encroachment.</li>
+        <li>Feeds into stability checks and drainage detail at the heel.</li>
+        <li>Avoids clashes with fence posts, ducts and inspection chambers.</li>
+      </ul>`,
+      diagram: svgRightTriangle(setback, height, {
+        angleASym:'θ', angleCSym:alt,
+        showRunTxt:'set‑back = ?',
+        showRiseTxt: height.toFixed(2)+' m',
+        showHypTxt:'slope = ?',
+        caption:'Retaining wall (to scale)',
+        triClass: pickTriClass()
+      }),
+      parts:[
+        { prompt:'Set‑back', unit:'m', val: setback },
+        { prompt:'Slope length', unit:'m', val: slope }
+      ],
+      check(){ return {parts:this.parts}; }
+    };
+  }
+
+  // 9) Embankment: rise & θ from slope length & run
+  function qEmbankment_rise_and_theta_from_slope_run(){
+    const run = rndf(6.0, 18.0, 2);
+    const thetaTarget = rndf(10, 30, 2);
+    const rise = Math.tan(rad(thetaTarget))*run;
+    const slope = Math.sqrt(run*run + rise*rise);
+    const theta = deg(Math.atan(rise/run));
+    const alt = pickAltGreek();
+    return {
+      title:'Embankment – find rise and θ from slope length & run',
+      statementHTML:[
+        `An embankment has slope length <b>${slope.toFixed(2)} m</b> and horizontal run <b>${run.toFixed(2)} m</b>.`,
+        `Angle symbols: <b>θ</b> at the base‑left corner and <b>${alt}</b> at the top‑right corner.`,
+        `Enter the <b>rise</b> and <b>θ</b>.`
+      ].join('<br>'),
+      whyHTML:`<ul>
+        <li>Supports haul road design and plant safe‑working gradients.</li>
+        <li>Helps estimate volumes for cut/fill and compaction passes.</li>
+        <li>Keeps batters within the geotechnical method statement.</li>
+      </ul>`,
+      diagram: svgRightTriangle(run, rise, {
+        angleASym:'θ', angleCSym:alt,
+        showRunTxt: run.toFixed(2)+' m',
+        showRiseTxt:'rise = ?',
+        showHypTxt: slope.toFixed(2)+' m',
+        caption:'Embankment (to scale)',
+        triClass: pickTriClass()
+      }),
+      parts:[
+        { prompt:'Rise', unit:'m', val: rise },
+        { prompt:'Angle θ', unit:'deg', val: theta }
+      ],
+      check(){ return {parts:this.parts}; }
+    };
+  }
+
+  // 10) Platform ramp: run & θ from rise & slope
+  function qPlatform_run_and_theta_from_rise_slope(){
+    const theta0 = rndf(8, 20, 2);       // only to generate consistent geometry
+    const run0 = rndf(4.0, 12.0, 2);
+    const rise = Math.tan(rad(theta0))*run0;
+    const slope = Math.sqrt(run0*run0 + rise*rise);
+    const run = Math.sqrt(Math.max(0, slope*slope - rise*rise)); // Pythag
+    const theta = deg(Math.atan(rise/run));                      // trig
+    const alt = pickAltGreek();
+    return {
+      title:'Platform ramp – find run and θ from rise & slope length',
+      statementHTML:[
+        `A platform ramp rises <b>${rise.toFixed(2)} m</b>.`,
+        `Its surface length along the ramp is <b>${slope.toFixed(2)} m</b>.`,
+        `Angle symbols: <b>θ</b> at the base‑left corner and <b>${alt}</b> at the top‑right corner.`,
+        `Enter the <b>run</b> and <b>θ</b>.`
+      ].join('<br>'),
+      whyHTML:`<ul>
+        <li>Ensures the ramp footprint clears hoarding lines and welfare cabins.</li>
+        <li>Confirms approach gradients for trolleys, barrows and MEWPs.</li>
+        <li>Prevents ponding by confirming fall lines relative to drainage slots.</li>
+      </ul>`,
+      diagram: svgRightTriangle(run, rise, {
+        angleASym:'θ', angleCSym:alt,
+        showRunTxt:'run = ?',
+        showRiseTxt: rise.toFixed(2)+' m',
+        showHypTxt: slope.toFixed(2)+' m',
+        caption:'Platform ramp (to scale)',
+        triClass: pickTriClass()
+      }),
+      parts:[
+        { prompt:'Run', unit:'m', val: run },
+        { prompt:'Angle θ', unit:'deg', val: theta }
+      ],
+      check(){ return {parts:this.parts}; }
+    };
+  }
+
+  /* ========= Pool ========= */
+  const GENERATORS = [
+    qRamp_theta_and_slope_from_run_rise,
+    qRamp_run_and_slope_from_theta_rise,
+    qMast_base_and_stay_from_height_theta,
+    qMast_height_and_theta_from_base_stay,
+    qCrane_phi_and_reach_from_jib_height,       // asks φ explicitly
+    qTrench_strut_and_theta_from_width_depth,
+    qRoof_rafter_and_rise_from_run_pitch,
+    qWall_setback_and_slope_from_height_theta,
+    qEmbankment_rise_and_theta_from_slope_run,
+    qPlatform_run_and_theta_from_rise_slope
+  ];
+
+  /* ========= State & elements ========= */
+  let QUESTIONS=[], BATCH=10, idx=0, score=0;
+  let nameStr='Student', mode='timed', timeLeft=0, timerId=null, target=0, correctSoFar=0, unlimited=false;
+  let currentQ=null;
+
+  const el = id=>document.getElementById(id);
+  const $startModal=el('startModal');
+  const $qCard=el('qCard');
+  const $endCard=el('endCard');
+  const $qTitle=el('qTitle'), $statement=el('statement'), $whyHtml=el('whyHtml');
+  const $scoreTopVal=el('scoreTopVal'), $modeTxt=el('modeTxt'), $timeTxt=el('timeTxt');
+
+  function buildSet(n){
+    const gens=[...GENERATORS], qs=[];
+    for(let i=0;i<n;i++){
+      const g = gens.length ? gens.splice(Math.floor(Math.random()*gens.length),1)[0] : GENERATORS[Math.floor(Math.random()*GENERATORS.length)];
+      const q = g();
+      // Attach diagram HTML directly into statement for clarity
+      q.statementHTML = q.statementHTML + q.diagram;
+      qs.push(q);
+    }
+    return qs;
+  }
+
+  function updateTop(){
+    el('whoName').textContent = nameStr || 'Student';
+    $modeTxt.textContent = mode==='timed' ? 'Timed' : 'Target';
+    $scoreTopVal.textContent = `${score} / ${idx}`;
+    $timeTxt.textContent = (mode==='timed' && !unlimited) ? secsToMMSS(timeLeft) : '—';
+  }
+  function startTimer(){
+    if(mode!=='timed' || unlimited) return;
+    clearInterval(timerId);
+    timerId = setInterval(()=>{
+      timeLeft = Math.max(0, timeLeft-1);
+      $timeTxt.textContent = secsToMMSS(timeLeft);
+      if(timeLeft===0){
+        clearInterval(timerId);
+        finish('Time’s up!');
+      }
+    },1000);
+  }
+
+  function startWorksheet(){
+    BATCH = parseInt(el('qtyInput').value,10);
+    QUESTIONS = buildSet(BATCH);
+    idx=0; score=0; correctSoFar=0;
+    $endCard.style.display='none';
+    $qCard.style.display='block';
+    renderQ();
+    updateTop();
+    if(window.MathJax && window.MathJax.typeset){ MathJax.typeset(); }
+    if(mode==='timed'){ startTimer(); }
+  }
+
+  function finish(message='Well done!'){
+    clearInterval(timerId);
+    $qCard.style.display='none';
+    $endCard.style.display='block';
+    el('endMsg').textContent = message;
+    el('sumName').textContent = nameStr || 'Student';
+    el('sumMode').textContent = ($modeTxt.textContent);
+    el('sumScore').textContent = `${score} / ${idx}`;
+    const tlimitRaw = parseInt(document.querySelector('input[name="tlimit"]:checked')?.value||'0',10);
+    const setTime = (mode==='timed' && !unlimited) ? tlimitRaw : 0;
+    const usedSecs = (mode==='timed' && !unlimited) ? (setTime - timeLeft) : 0;
+    el('sumTime').textContent = (mode==='timed' && !unlimited) ? secsToMMSS(usedSecs) : '—';
+  }
+
+  function progressText(){
+    return (mode==='timed') ? `Question ${idx+1}` : `Question ${idx+1} · Target ${correctSoFar}/${target}`;
+  }
+  function renderQ(){
+    const local = idx % QUESTIONS.length;
+    currentQ = QUESTIONS[local];
+    el('progress').textContent = progressText();
+    $qTitle.textContent = currentQ.title;
+    $statement.innerHTML = currentQ.statementHTML;
+    $whyHtml.innerHTML = currentQ.whyHTML || '';
+    buildIORows(currentQ.parts);
+    el('nextBtn').disabled = true;
+    $scoreTopVal.textContent = `${score} / ${idx}`;
+    if(window.MathJax && window.MathJax.typeset){ MathJax.typeset(); }
+  }
+
+  function checkCurrent(){
+    const parts = (currentQ.check && currentQ.check().parts) || currentQ.parts;
+    let allOK=true;
+    parts.forEach((p,i)=>{
+      const inp = el('ans-'+i);
+      const mark = el('mark-'+i);
+      const fb = el('fb-'+i);
+      const stu = parseNum(inp && inp.value);
+      if(isFinite(stu)) inp.value = to2(stu);
+      if(isFinite(stu) && eq2dp(stu, p.val)){
+        mark.textContent='✓'; mark.className='marker ok'; fb.textContent='';
+      }else{
+        mark.textContent='✗'; mark.className='marker no';
+        fb.innerHTML = `Ans: <span class="ans">${to2(p.val)} ${unit(p.unit)}</span>`;
+        allOK=false;
+      }
+      inp.disabled=true;
+    });
+    if(allOK){ score++; correctSoFar++; }
+    $scoreTopVal.textContent = `${score} / ${idx+1}`;
+    el('nextBtn').disabled=false;
+    if(mode==='target' && correctSoFar>=target){ finish('Target achieved!'); }
+  }
+
+  function nextQ(){
+    idx++;
+    if(idx % QUESTIONS.length === 0){
+      QUESTIONS = buildSet(BATCH);
+    }
+    renderQ();
+    updateTop();
+  }
+
+  // Events
+  document.getElementById('checkBtn').addEventListener('click', checkCurrent);
+  document.getElementById('nextBtn').addEventListener('click', nextQ);
+  document.getElementById('newBtn').addEventListener('click', ()=>{ document.getElementById('startModal').style.display='flex'; });
+
+  document.addEventListener('keydown', (e)=>{
+    if(e.key==='Enter' && !document.getElementById('nextBtn').disabled){ nextQ(); }
+    else if(e.key==='Enter' && document.getElementById('nextBtn').disabled){ checkCurrent(); }
+  });
+
+  function updateModeFields(){
+    const modeEl = document.querySelector('input[name="mode"]:checked');
+    const modeVal = modeEl ? modeEl.value : 'timed';
+    document.getElementById('timedField').style.display = (modeVal==='timed') ? '' : 'none';
+    document.getElementById('targetField').style.display = (modeVal==='target') ? '' : 'none';
+  }
+  document.querySelectorAll('input[name="mode"]').forEach(r=>r.addEventListener('change', updateModeFields));
+
+  // Start button -> build set & render
+  document.getElementById('startBtn').addEventListener('click', ()=>{
+    const nameVal = document.getElementById('nameInput').value.trim();
+    nameStr = nameVal || 'Student';
+    const picked = document.querySelector('input[name="mode"]:checked');
+    mode = picked ? picked.value : 'timed';
+    let timeSel = 1200;
+    if(mode==='timed'){
+      timeSel = parseInt(document.querySelector('input[name="tlimit"]:checked')?.value||'1200',10);
+      unlimited = (timeSel===0);
+      timeLeft = unlimited ? 0 : timeSel;
+    } else { timeLeft = 0; unlimited=false; }
+    if(mode==='target'){
+      target = clamp(parseInt(document.getElementById('targetInput').value,10)||10,1,1000000);
+    } else { target = 0; }
+    document.getElementById('startModal').style.display='none';
+    document.getElementById('modeTxt').textContent = mode==='timed' ? 'Timed' : 'Target';
+    if(mode==='timed' && unlimited){ document.getElementById('timeTxt').textContent='—'; }
+    startWorksheet();
+  });
+
+  document.getElementById('restartBtn').addEventListener('click', ()=>{ document.getElementById('startModal').style.display='flex'; });
+  updateModeFields();
+
+  // Fullscreen
+  document.getElementById('fsBtn').addEventListener('click', ()=>{
+    if(!document.fullscreenElement){ document.documentElement.requestFullscreen?.(); }
+    else{ document.exitFullscreen?.(); }
+  });
+  document.addEventListener('fullscreenchange', ()=>{
+    document.getElementById('fsBtn').textContent = document.fullscreenElement ? '✕ Exit full screen' : '⛶ Full screen';
+  });
+
+  // Show modal on load
+  document.getElementById('startModal').style.display='flex';
+});
+</script>
+</body>
+</html>
