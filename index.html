@@ -1,510 +1,154 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
-  <meta charset="UTF-8" />
-  <title>Civil Engineering – Pythagoras & Basic Trigonometry (Right Triangles • Symbols + Big Dimensions)</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script id="MathJax-script" async
-          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  <style>
-    :root{
-      --accent:#6a5cff;
-      --accent2:#00c2ff;
-      --ink:#0f172a;
-      --muted:#55607a;
-      --success:#2e7d32;
-      --error:#e53935;
-      --surface:#ffffff;
-      --field-w:11rem;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
-      margin:0;color:var(--ink);
-      background:
-        radial-gradient(1200px 600px at 10% -10%, #dfe8ff, transparent 60%),
-        radial-gradient(1200px 600px at 110% 10%, #ccfbff, transparent 60%),
-        linear-gradient(180deg,#f5f8ff 0%, #f0fbff 50%, #eef3ff 100%);
-    }
-    h1{
-      margin:0.7rem 0 0.4rem;text-align:center;
-      font-size:1.6rem;font-weight:900;
-      background:linear-gradient(90deg,var(--accent),var(--accent2));
-      -webkit-background-clip:text;background-clip:text;color:transparent;
-      letter-spacing:.2px
-    }
-    p.lede{max-width:980px;margin:0.2rem auto 0.6rem;text-align:center;color:#1f2a44}
-
-    .logo{position:absolute;top:10px;left:10px;width:110px;height:auto;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.15)}
-
-    /* Top bar */
-    .topbar{
-      max-width:980px;margin:0.15rem auto 0.65rem;display:flex;gap:0.6rem;
-      justify-content:space-between;align-items:center;padding:0 0.6rem
-    }
-    .badge{
-      background:#fff;border:1px solid rgba(106,92,255,.25);border-radius:14px;
-      padding:0.5rem 0.7rem;font-weight:800;min-width:120px;text-align:center;
-      box-shadow:0 3px 10px rgba(106,92,255,.08)
-    }
-    .badge small{display:block;font-weight:600;color:var(--muted);margin-top:2px;font-size:.82rem}
-    .top-actions{display:flex;gap:0.45rem;align-items:center}
-    .fsBtn{
-      border:1px solid rgba(0,194,255,.5);background:linear-gradient(180deg,#ffffff,#f3fcff);
-      border-radius:12px;padding:.55rem .8rem;font-weight:900;cursor:pointer;color:#0b3d4a;
-      box-shadow:0 3px 10px rgba(0,194,255,.15)
-    }
-    .fsBtn:hover{background:#ecfbff}
-
-    /* Card */
-    .card{
-      max-width:980px;margin:0.25rem auto;background:var(--surface);border-radius:16px;
-      border:2px solid rgba(106,92,255,.35);
-      box-shadow:0 12px 30px rgba(106,92,255,.12), 0 6px 14px rgba(0,0,0,.06);
-      padding:0.95rem
-    }
-    .titleRow{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem}
-    .qTitle{font-size:1.15rem;font-weight:900;color:#2c3477;margin:0.1rem 0}
-    .qMeta{color:var(--muted);font-size:.95rem}
-
-    .statement{font-size:1.5rem;margin:0.55rem 0 0.7rem;line-height:1.35}
-    .statement b{font-weight:900}
-    details{border:1px solid rgba(106,92,255,.3);border-radius:12px;margin:0.5rem 0;background:#fbfcff}
-    summary{cursor:pointer;font-weight:900;color:#2c3477;padding:0.6rem 0.8rem;list-style:none}
-    summary::-webkit-details-marker{display:none}
-    .hint{padding:0 0.9rem 0.85rem;font-size:1rem;color:#1f2a44}
-
-    /* Inputs */
-    .io{display:grid;gap:0.8rem;margin-top:0.5rem}
-    .row{display:grid;grid-template-columns:1.2fr auto auto auto 1fr;align-items:center;gap:.6rem}
-    .row label{font-weight:900;color:#1f2a44;font-size:1.05rem}
-    .unit{
-      background:linear-gradient(180deg,#eef4ff,#f7fbff);
-      border:1px solid rgba(0,194,255,.35);
-      color:#173a56;border-radius:10px;padding:0.35rem 0.6rem;font-weight:900;min-width:6.5rem;text-align:center
-    }
-    .num{
-      width:var(--field-w);text-align:center;border:1px solid rgba(106,92,255,.45);
-      border-radius:10px;font-size:1.02rem;padding:.48rem .4rem;background:linear-gradient(180deg,#ffffff,#f6f7ff);
-      box-shadow:inset 0 1px 2px rgba(0,0,0,.06)
-    }
-    .num:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(106,92,255,.18)}
-
-    /* Markers & feedback */
-    .marker{font-size:1.45rem;font-weight:900;min-width:1.9rem;text-align:center}
-    .ok{color:var(--success); animation:pop .25s ease-out}
-    .no{color:var(--error)}
-    @keyframes pop { 0%{transform:scale(0.85)} 100%{transform:scale(1)} }
-    .feedback{font-size:0.95rem;color:#1f2a44}
-    .feedback .ans{font-weight:900}
-
-    /* Controls */
-    .controls{display:flex;justify-content:center;gap:.6rem;margin-top:0.75rem;flex-wrap:wrap}
-    button.primary{
-      background:linear-gradient(90deg,var(--accent),var(--accent2));
-      color:#fff;border:none;border-radius:12px;padding:.7rem 1.2rem;font-weight:900;cursor:pointer;
-      box-shadow:0 8px 18px rgba(106,92,255,.25)
-    }
-    button.secondary{
-      background:#111827;color:#fff;border:none;border-radius:12px;padding:.7rem 1.2rem;font-weight:900;cursor:pointer
-    }
-    button.ghost{
-      background:linear-gradient(180deg,#ffffff,#f7f9ff);border:1px solid rgba(17,24,39,.25);
-      border-radius:12px;padding:.6rem 1rem;font-weight:900;cursor:pointer;color:#111827
-    }
-    button:disabled{opacity:.6;cursor:not-allowed}
-    #progress{font-weight:900;text-align:center;color:#111827;margin:0.15rem 0 0.6rem}
-
-    /* Start modal */
-    .modal{position:fixed;inset:0;background:rgba(15,23,42,.35);display:flex;align-items:center;justify-content:center;padding:1rem;z-index:999}
-    .panel{
-      background:linear-gradient(180deg,#ffffff,#f7f8ff);
-      border-radius:16px;max-width:780px;width:100%;
-      box-shadow:0 18px 40px rgba(17,24,39,.25);border:2px solid rgba(106,92,255,.35)
-    }
-    .panel header{padding:0.9rem 1rem;border-bottom:1px solid rgba(106,92,255,.25)}
-    .panel header h2{margin:0;color:#2c3477}
-    .panel .content{padding:1rem;display:grid;gap:0.9rem}
-    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem}
-    .field{display:grid;gap:0.35rem}
-    .field input[type=text], .field input[type=number], .field select{
-      padding:0.55rem .6rem;border:1px solid rgba(106,92,255,.4);border-radius:10px;background:#fff
-    }
-    .choiceRow{display:flex;gap:.75rem;align-items:center;flex-wrap:wrap}
-    .pill{border:1px solid rgba(106,92,255,.45);padding:.35rem .7rem;border-radius:999px;cursor:pointer;font-weight:900;background:#fff}
-    .pill input{margin-right:.35rem}
-    .panel footer{display:flex;justify-content:space-between;align-items:center;padding:0.85rem 1rem;border-top:1px solid rgba(106,92,255,.25)}
-    .muted{color:var(--muted);font-size:.95rem}
-
-    /* End screen */
-    #endCard{max-width:820px;margin:1rem auto;padding:1rem;border-radius:14px;background:#fff;border:2px solid #2e7d32;display:none}
-    #endCard h3{margin-top:0;color:#1e7a31}
-    .wellDone{display:inline-block;background:#eaf7ec;border:1px solid #b9e2bf;color:#1e7a31;padding:.25rem .5rem;border-radius:8px;font-weight:900}
-
-    /* Figures (SVG) – larger */
-    .fig{max-width:820px;width:100%;height:auto;display:block;margin:.5rem auto;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,.08);background:#fff}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#13313d">
+<meta name="description" content="Pythagoras and basic trigonometry for civil engineering students. Ten original right-triangle question types, clear diagrams and inclusive ±1.00 marking.">
+<title>Civil Engineering | Pythagoras &amp; Basic Trigonometry</title>
+<style>:root{color-scheme:light;--ink:#192f3c;--muted:#546976;--bg:#eef3f4;--paper:#fff;--soft:#f5f8f8;--line:#d6e2e4;--accent:#087867;--accent-dark:#055d51;--tint:#e7f5ef;--navy:#13313d;--blue:#245f92;--bad:#a33132;--bad-bg:#fff0ed;--amber:#855813;--amber-bg:#fff6e4;--focus:#1968ad;--shadow:0 12px 35px #1638460b;--font:16px;--tri-fill:#c5e7dc;--tri-line:#246553;--dim:#567782;--grid:#e5eeed}
+*{box-sizing:border-box}[hidden]{display:none!important}html{font-size:var(--font);scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}button,input,select,textarea{font:inherit}button,summary{cursor:pointer;touch-action:manipulation}button:disabled{opacity:.45;cursor:not-allowed}button,input,select,textarea,summary,a{outline-offset:4px}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible,a:focus-visible{outline:3px solid var(--focus)}h1,h2,h3,p,figure{margin:0}h1,h2,h3{line-height:1.18}button{border:1px solid var(--line);border-radius:11px;padding:.7rem .95rem;font-weight:700;background:var(--paper);color:var(--ink);min-height:44px}button:hover:not(:disabled){border-color:var(--accent);background:var(--tint)}button.primary{background:var(--accent);border-color:var(--accent);color:#fff}button.primary:hover:not(:disabled){background:var(--accent-dark);color:#fff}button.dark{background:var(--navy);color:#fff;border-color:var(--navy)}button.danger{color:var(--bad)}button.small{font-size:.85rem;padding:.5rem .75rem;min-height:40px}button.link{border-color:transparent;background:transparent;text-decoration:underline;text-underline-offset:3px}input,select,textarea{border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:10px;min-width:0;padding:.75rem;width:100%}input[type=radio]{width:18px;height:18px;accent-color:var(--accent);margin:0}input:disabled{opacity:1;background:var(--soft);color:var(--ink)}textarea{resize:vertical;min-height:100px}fieldset{margin:0;padding:0;border:0;min-width:0}legend,label{font-weight:700}a{color:var(--accent)}.wrap{width:min(1340px,100%);padding:0 28px;margin:auto}.skip-link{position:absolute;left:10px;top:-90px;z-index:99;background:var(--paper);padding:12px}.skip-link:focus{top:10px}.site-header{background:var(--navy);color:#fff;border-bottom:4px solid #62c3a1}.header-row{display:flex;justify-content:space-between;align-items:center;gap:24px;padding-top:22px;padding-bottom:22px}.eyebrow{font-size:.72rem;letter-spacing:.16em;font-weight:800;text-transform:uppercase;color:var(--accent);margin-bottom:9px}.site-header .eyebrow{color:#a8dfcd;margin-bottom:6px}h1{font-size:clamp(1.35rem,2.5vw,2rem);letter-spacing:-.035em}.header-sub{font-size:.83rem;margin-top:6px;color:#c6dae0}.header-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:flex-end;max-width:340px}.header-actions button{background:#ffffff10;border-color:#ffffff35;color:#fff;font-size:.8rem;padding:.55rem .7rem}.header-actions button:hover:not(:disabled){background:#ffffff20;border-color:#a8dfcd}.college{color:#d2e0e5;font-size:.78rem;width:100%;text-align:right}.main{padding-top:24px;padding-bottom:28px}.muted{color:var(--muted)}.tiny{font-size:.8rem}.small-copy{font-size:.9rem}.card{border:1px solid var(--line);border-radius:18px;background:var(--paper);box-shadow:var(--shadow)}.card-pad{padding:26px}.stack{display:grid;gap:18px}.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.between{justify-content:space-between}.button-row{display:flex;gap:10px;flex-wrap:wrap}.button-row>*{flex:0 1 auto}.note{background:var(--soft);border:1px solid var(--line);padding:13px 16px;border-radius:12px;font-size:.86rem}.note p+p{margin-top:8px}.pill{display:inline-flex;gap:7px;align-items:center;border-radius:999px;padding:5px 10px;background:var(--tint);color:var(--accent-dark);font-size:.76rem;font-weight:800;white-space:nowrap}.notice{padding:15px 18px;border:1px solid var(--line);background:var(--paper);border-radius:12px;margin-bottom:18px}.error{color:var(--bad);background:var(--bad-bg);border-color:var(--bad)}.resume-card{border-color:#7cbba7;background:var(--tint)}.setup-layout{display:grid;grid-template-columns:1fr 1.02fr;gap:22px}.intro{background:var(--navy);color:#fff;overflow:hidden;position:relative}.intro .eyebrow{color:#9edcc7}.intro h2{font-size:clamp(2rem,3.3vw,3rem);font-weight:750;letter-spacing:-.045em;max-width:500px}.intro-lede{font-size:1.03rem;line-height:1.7;color:#d7e6e8;margin-top:18px;max-width:480px}.intro-art{height:165px;margin:12px 0 4px;opacity:.95}.intro-art svg{width:100%;height:100%}.intro-bottom{display:flex;gap:20px;flex-wrap:wrap;border-top:1px solid #ffffff25;padding-top:20px;margin-top:10px}.intro-bottom strong{display:block;font-size:1.15rem}.intro-bottom span{font-size:.78rem;color:#c0d7dc}.setup-form h2{font-size:1.35rem;margin-bottom:6px}.form-body{display:grid;gap:19px;margin-top:24px}.field{display:grid;gap:7px;min-width:0}.field label,legend{font-size:.85rem}.field small{color:var(--muted);font-size:.77rem}.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.mode-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}.mode-option{display:grid;grid-template-columns:auto 1fr;gap:8px 10px;align-items:start;padding:13px;border:1px solid var(--line);border-radius:12px;cursor:pointer;font-size:.91rem}.mode-option:has(input:checked){border-color:var(--accent);background:var(--tint)}.mode-option small{display:block;font-size:.73rem;font-weight:400;color:var(--muted);margin-top:4px}.mode-option input{margin-top:3px}.tolerance-banner{display:flex;align-items:center;gap:14px;padding:15px;border-radius:12px;background:var(--tint)}.tolerance-number{font-size:1.7rem;font-weight:800;letter-spacing:-.035em;color:var(--accent-dark);white-space:nowrap}.tolerance-banner strong{font-size:.86rem}.tolerance-banner p{font-size:.75rem;color:var(--muted);margin-top:3px}.start-button{width:100%;padding:14px}.content-list{margin-top:22px}.content-list ol{display:grid;grid-template-columns:1fr 1fr;gap:10px 26px;margin:0;padding-left:23px;font-size:.86rem}.content-list li{padding-left:3px}.content-list li::marker{color:var(--accent);font-weight:800}details{border:1px solid var(--line);border-radius:12px;background:var(--paper);overflow:hidden}summary{padding:15px 17px;font-weight:750;font-size:.86rem;display:flex;justify-content:space-between;gap:15px;list-style:none}summary::-webkit-details-marker{display:none}summary::after{content:'+';color:var(--accent);font-weight:800}details[open]>summary::after{content:'−'}details[open]>summary{border-bottom:1px solid var(--line)}.details-body{padding:17px}.details-body ul{margin:0;padding-left:20px}.details-body li+li{margin-top:10px}.session-toolbar{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr auto;gap:12px;align-items:center;margin-bottom:18px}.stat{padding:13px 17px;min-width:0}.stat .stat-label{display:block;font-size:.69rem;letter-spacing:.07em;color:var(--muted);text-transform:uppercase;font-weight:800}.stat .stat-value{display:block;font-size:1.1rem;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:3px;font-variant-numeric:tabular-nums}.stat.warn{border-color:#bd8738;background:var(--amber-bg)}.session-buttons{display:flex;gap:8px}.session-buttons button{font-size:.8rem}.progress-track{height:5px;background:var(--line);border-radius:99px;overflow:hidden;margin:10px 0 22px}.progress-track div{height:100%;background:var(--accent);transition:width .2s}.question-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:13px}.question-heading h2{font-size:1.3rem;letter-spacing:-.02em;max-width:820px}.question-heading .eyebrow{margin:0 0 7px}.question-layout{display:grid;grid-template-columns:minmax(0,1fr) 355px;gap:20px;align-items:start}.question-main{overflow:hidden}.statement{font-size:clamp(1rem,1.6vw,1.21rem);line-height:1.65;padding:22px 24px 18px}.statement .statement-line{display:block;margin-bottom:10px}.statement .statement-line:last-child{margin-bottom:0}.statement b{font-weight:780;color:var(--ink)}.statement .angle-line{font-size:.84rem;color:var(--muted);margin-top:4px}.diagram-section{border-top:1px solid var(--line);padding:14px 18px 10px;background:var(--soft)}.diagram-header{display:flex;gap:12px;justify-content:space-between;align-items:center;margin-bottom:2px}.diagram-caption{font-size:.74rem;color:var(--muted);font-weight:700}.diagram-frame{overflow-x:auto;overscroll-behavior-x:contain;border-radius:12px;scrollbar-width:thin}.diagram{width:100%;height:auto;display:block;min-width:440px;max-height:400px}.diagram .tri-shape{fill:var(--tri-fill);stroke:var(--tri-line);stroke-width:2.6;stroke-linejoin:round}.diagram .dim-line{stroke:var(--dim);stroke-width:1.4;fill:none}.diagram .ext-line{stroke:var(--dim);stroke-width:1;stroke-dasharray:4 4;opacity:.7}.diagram .dim-tick{stroke:var(--dim);stroke-width:1.7}.diagram .dim-label{font:700 22px system-ui,sans-serif;fill:var(--ink);paint-order:stroke fill;stroke:var(--soft);stroke-width:7px;stroke-linejoin:round}.diagram .angle-symbol{font:750 26px system-ui,sans-serif;fill:var(--accent-dark);paint-order:stroke fill;stroke:var(--soft);stroke-width:5px;stroke-linejoin:round}.diagram .angle-arc{fill:none;stroke:var(--accent);stroke-width:1.8}.diagram .right-angle{fill:none;stroke:var(--tri-line);stroke-width:1.8}.diagram .grid-line{stroke:var(--grid);stroke-width:.7}.diagram-foot{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:.69rem;color:var(--muted);padding:5px 0}.side-rail{display:grid;gap:14px}.answer-panel{padding:21px}.answer-panel h3{font-size:1.06rem;margin-bottom:5px}.answer-instruction{font-size:.79rem;color:var(--muted);margin-bottom:18px}.answer-field{border:1px solid var(--line);border-radius:12px;padding:13px;margin-bottom:12px}.answer-field.accepted{border-color:#74af96;background:var(--tint)}.answer-field.incorrect{border-color:#cf8f84;background:var(--bad-bg)}.answer-field.revealed{border-color:#c9a768;background:var(--amber-bg)}.answer-label{font-size:.87rem;display:flex;gap:8px;align-items:center}.part-tag{font-size:.68rem;font-weight:800;border:1px solid var(--line);border-radius:5px;padding:1px 6px;color:var(--muted);background:var(--paper)}.answer-input-wrap{display:grid;grid-template-columns:1fr 45px;align-items:center;margin-top:10px;border:1.5px solid var(--line);border-radius:10px;overflow:hidden;background:var(--paper)}.answer-input-wrap:focus-within{border-color:var(--accent);box-shadow:0 0 0 2px var(--tint)}.answer-input-wrap input{font-size:1.5rem;font-weight:730;padding:10px 12px;border:0;border-radius:0;text-align:left;font-variant-numeric:tabular-nums;min-height:50px;width:100%}.answer-input-wrap input:focus{outline:none}.unit{font-size:1.13rem;font-weight:750;color:var(--muted);text-align:center;border-left:1px solid var(--line)}.stepper-row{display:flex;gap:8px;margin-top:9px;align-items:center}.stepper-row button{padding:4px 11px;min-height:32px;font-size:.76rem}.stepper-row small{font-size:.69rem;color:var(--muted);margin-left:auto}.answer-feedback{font-size:.8rem;line-height:1.5;margin-top:9px;min-height:0}.answer-feedback:empty{display:none}.answer-feedback strong{display:block}.answer-feedback .model{display:block;margin-top:3px}.answer-actions{display:grid;gap:9px;margin-top:15px}.answer-actions button{width:100%}.marking-note{font-size:.72rem;color:var(--muted);line-height:1.6;margin-top:13px}.check-message{font-size:.84rem;border-radius:10px;background:var(--soft);padding:12px;margin-top:13px}.check-message.success{background:var(--tint);color:var(--accent-dark)}.formula-box{display:grid;gap:18px}.formula-line{font-size:1.06rem;font-weight:680;display:flex;flex-wrap:wrap;align-items:center;gap:8px}.formula-line small{font-weight:400;font-size:.75rem;color:var(--muted)}.frac{display:inline-flex;vertical-align:middle;flex-direction:column;text-align:center;line-height:1.3;font-size:.92em}.frac>span:first-child{border-bottom:1.3px solid currentColor;padding:0 5px 3px}.frac>span:last-child{padding:3px 5px 0}.formula-tip{font-size:.78rem;color:var(--muted)}.formula-group{display:grid;gap:15px}.why-content{font-size:.85rem;line-height:1.6}.note-label{display:flex;align-items:center;justify-content:space-between;font-size:.81rem;margin:0 0 8px}.typed-note{font-size:.86rem}.auto-note{font-size:.69rem;color:var(--muted);margin-top:6px}.site-footer{font-size:.75rem;color:var(--muted);padding:0 28px 25px;max-width:1340px;margin:auto;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.site-footer span{max-width:740px}.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);padding:12px 18px;background:var(--navy);color:#fff;border-radius:12px;z-index:110;box-shadow:0 5px 25px #0002;width:max-content;max-width:calc(100% - 36px);font-size:.9rem}.toast:empty{display:none}.result-heading{padding:28px;display:flex;align-items:center;justify-content:space-between;gap:20px}.result-heading h2{font-size:2.05rem;letter-spacing:-.04em}.result-heading p{margin-top:9px;color:var(--muted)}.result-score{border-radius:18px;background:var(--tint);padding:18px 25px;text-align:center;flex-shrink:0}.result-score strong{font-size:2.2rem;letter-spacing:-.04em;display:block;line-height:1.1;color:var(--accent-dark)}.result-score span{font-size:.76rem;color:var(--muted)}.result-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0 20px}.result-stat{padding:18px}.result-stat strong{display:block;font-size:1.5rem;font-variant-numeric:tabular-nums}.result-stat span{font-size:.76rem;color:var(--muted)}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.84rem}th,td{padding:13px 16px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}th{background:var(--soft);font-size:.73rem;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}tr:last-child td{border-bottom:0}.table-heading{padding:20px 20px 15px}.table-heading h3{font-size:1.1rem}.review-list{display:grid;gap:11px}.review-list summary{font-size:.86rem}.review-status{font-size:.74rem;color:var(--muted);margin-left:auto;white-space:nowrap}.review-content{padding:18px;font-size:.88rem}.review-question{line-height:1.6;margin-bottom:14px}.review-answers{display:grid;grid-template-columns:1fr 1fr;gap:12px}.review-part{padding:12px;background:var(--soft);border:1px solid var(--line);border-radius:10px}.review-part .model{font-size:1rem;font-weight:750;display:block;margin-top:5px}.review-part .tiny{display:block;margin-top:4px}.review-part.accepted{background:var(--tint)}.review-part.incorrect{background:var(--bad-bg)}.review-part.revealed{background:var(--amber-bg)}dialog{color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:0 20px 90px #0b253e55;padding:0;max-width:calc(100vw - 28px);max-height:calc(100dvh - 28px)}dialog::backdrop{background:#0c273ebb;backdrop-filter:blur(3px)}.dialog-head{padding:17px 22px;display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid var(--line)}.dialog-head h2{font-size:1.15rem}.dialog-body{padding:22px}.dialog-foot{padding:17px 22px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:10px}.confirm-dialog{width:460px}.diagram-dialog{width:min(1120px,calc(100vw - 28px))}.diagram-dialog .diagram{max-height:calc(100dvh - 190px);min-width:440px}.diagram-dialog .diagram-frame{padding:18px;background:var(--soft)}.work-dialog{width:min(1440px,calc(100vw - 24px));height:calc(100dvh - 24px)}.work-layout{display:flex;flex-direction:column;height:100%;min-height:0}.work-top{padding:14px 20px;display:grid;grid-template-columns:1fr 220px;gap:16px;border-bottom:1px solid var(--line);background:var(--soft);max-height:260px;overflow:auto}.work-top .statement{padding:0;font-size:.97rem;line-height:1.5}.work-top .statement-line{margin-bottom:5px}.work-top .angle-line{font-size:.76rem}.work-mini{align-self:center;cursor:pointer}.work-mini .diagram{min-width:0;max-height:150px}.work-tools{padding:10px 17px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}.work-tools .button-row{gap:6px}.work-tools button{font-size:.76rem;padding:7px 10px;min-height:36px}.work-tools button[aria-pressed=true]{background:var(--tint);color:var(--accent-dark);border-color:var(--accent)}.work-tools input[type=color]{width:37px;height:36px;padding:3px}.canvas-shell{flex:1;min-height:220px;position:relative;overflow:hidden;background:#fff;background-image:linear-gradient(#e8edef 1px,transparent 1px),linear-gradient(90deg,#e8edef 1px,transparent 1px);background-size:28px 28px}.canvas-shell.plain{background-image:none}.canvas-shell canvas{display:block;width:100%;height:100%;touch-action:none;cursor:crosshair}.canvas-placeholder{position:absolute;top:22px;left:25px;color:#89979e;font-size:.85rem;pointer-events:none}.work-bottom{padding:10px 18px;font-size:.74rem;color:var(--muted);display:flex;justify-content:space-between;gap:20px;border-top:1px solid var(--line)}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}body[data-theme=dark]{color-scheme:dark;--ink:#e6eff0;--muted:#b1c4cc;--bg:#10212a;--paper:#192e39;--soft:#1c343e;--line:#3d535e;--accent:#73d2b4;--accent-dark:#a4e3ce;--tint:#223f3b;--blue:#91c3ef;--bad:#ffa6a0;--bad-bg:#432d33;--amber:#edca83;--amber-bg:#3d372d;--focus:#8ac9ff;--tri-fill:#356b60;--tri-line:#b9e9d8;--dim:#9cbac5;--grid:#2d474e}body[data-theme=dark] button.primary{background:#137c68;border-color:#339480;color:#fff}body[data-theme=dark] button.primary:hover:not(:disabled){background:#0f6354}body[data-theme=dark] .site-header{background:#0e222d}body[data-size=large]{--font:18px}body[data-overlay=cream]{--bg:#f4efe1;--soft:#faf5e8;--paper:#fffaf0;--grid:#ebe4d1}body[data-overlay=blue]{--bg:#e8f0f6;--soft:#f0f6fc;--paper:#f8fcff;--grid:#dce7f1}body[data-theme=dark][data-overlay=cream],body[data-theme=dark][data-overlay=blue]{--bg:#10212a;--soft:#1c343e;--paper:#192e39;--grid:#2d474e}.display-settings{width:420px}.settings-grid{display:grid;gap:18px}
+@media(min-width:1700px){.wrap{width:min(1440px,100%)}.question-layout{grid-template-columns:minmax(0,1fr) 390px}.diagram{max-height:460px}}
+@media(max-width:1050px){.question-layout{grid-template-columns:minmax(0,1fr) 320px;gap:15px}.wrap{padding:0 20px}.statement{padding:18px}.answer-panel{padding:17px}.session-toolbar{grid-template-columns:1.2fr 1fr 1fr 1fr}.session-buttons{grid-column:1/-1;justify-content:flex-end}.setup-layout{gap:16px}.card-pad{padding:22px}.diagram{min-width:440px}.header-actions{max-width:280px}}
+@media(max-width:820px){.question-layout{grid-template-columns:1fr}.side-rail{grid-template-columns:1fr 1fr;align-items:start}.answer-panel{grid-row:span 3}.diagram{max-height:350px}.setup-layout{grid-template-columns:1fr}.intro{display:none}.session-toolbar{grid-template-columns:repeat(4,1fr)}.stat{padding:12px}.header-row{gap:14px}.header-actions{max-width:240px}.college{display:none}.question-heading h2{font-size:1.2rem}.content-list ol{grid-template-columns:1fr 1fr}.work-top{grid-template-columns:1fr 165px}.work-mini{overflow:hidden}}
+@media(max-width:600px){.wrap{padding:0 14px}.header-row{padding-top:17px;padding-bottom:17px;align-items:flex-start;flex-direction:column;gap:13px}.header-actions{max-width:none;justify-content:flex-start;gap:7px}.header-actions button{font-size:.74rem;min-height:37px}.header-sub{display:none}.site-header .eyebrow{font-size:.64rem}.main{padding-top:17px}.card-pad{padding:20px}.field-grid{grid-template-columns:1fr}.setup-form h2{font-size:1.35rem}.form-body{gap:17px;margin-top:18px}.mode-options{gap:8px}.mode-option{padding:11px}.content-list ol{grid-template-columns:1fr}.session-toolbar{grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px}.stat .stat-label{font-size:.64rem}.stat .stat-value{font-size:1.02rem}.session-buttons{justify-content:space-between}.session-buttons button{flex:1}.question-heading{align-items:flex-start;gap:12px}.question-heading h2{font-size:1.12rem}.question-heading .eyebrow{font-size:.66rem}.question-heading .pill{font-size:.64rem;max-width:110px;white-space:normal;text-align:center}.progress-track{margin-bottom:17px}.statement{font-size:1.02rem;padding:19px;line-height:1.6}.statement .angle-line{font-size:.79rem}.diagram-section{padding:12px 10px 9px}.diagram-header{align-items:flex-start}.diagram-caption{font-size:.67rem}.diagram-header button{font-size:.72rem;padding:5px 8px;min-height:35px}.diagram{min-width:480px;max-height:none}.diagram-foot{font-size:.66rem}.side-rail{grid-template-columns:1fr}.answer-panel{grid-row:auto;padding:20px}.answer-panel h3{font-size:1.12rem}.answer-input-wrap input{font-size:1.7rem}.answer-instruction{font-size:.84rem}.answer-feedback{font-size:.84rem}.marking-note{font-size:.76rem}.result-heading{flex-direction:column;align-items:flex-start;padding:22px}.result-heading h2{font-size:1.7rem}.result-score{width:100%}.result-stats{grid-template-columns:1fr 1fr;gap:9px}.result-stat{padding:15px}.review-answers{grid-template-columns:1fr}.review-status{font-size:.64rem;white-space:normal;text-align:right;min-width:58px}.button-row.results-buttons>*{width:100%}.site-footer{font-size:.7rem;padding:0 16px 20px}.work-top{grid-template-columns:1fr;padding:12px 15px;max-height:210px}.work-mini{display:none}.work-top .statement{font-size:.85rem}.work-top .angle-line{font-size:.7rem}.dialog-head{padding:12px 15px}.dialog-head h2{font-size:.98rem}.work-tools{padding:8px;gap:6px}.work-tools button{font-size:.7rem;padding:5px 7px;min-height:34px}.work-tools .button-row{gap:5px}.work-bottom{font-size:.66rem;padding:8px 12px}.work-bottom span:nth-child(2){display:none}.canvas-shell{min-height:150px}.tolerance-banner{gap:12px}.tolerance-number{font-size:1.5rem}.result-heading .button-row{width:100%}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+@media print{body{background:#fff!important;color:#111!important;font-size:11pt}.site-header,.header-actions,.site-footer,.session-buttons,button,.toast,dialog,.progress-track,.setup-layout,.content-list,.resume-card,#storageNotice,.answer-actions,.stepper-row,.auto-note{display:none!important}.wrap{width:100%;padding:0}.main{padding:0}.card,details{box-shadow:none;border:1px solid #bbb;background:#fff!important;break-inside:avoid}.question-layout{display:block}.question-heading{margin-top:0}.question-main{margin-bottom:12px}.statement{font-size:12pt}.side-rail{display:block}.side-rail>*{margin:10px 0}.diagram{min-width:0;max-height:270px}.answer-panel{padding:15px}.answer-field{display:inline-block;vertical-align:top;width:47%;margin-right:2%;padding:10px}.answer-input-wrap input{font-size:15pt}.answer-feedback{font-size:10pt}.session-toolbar{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.result-heading{padding:15px}.result-score{background:#f3f7f5}.result-stats{grid-template-columns:repeat(4,1fr)}details:not([open])>.details-body,details:not([open])>.review-content{display:block!important}summary{border-bottom:1px solid #ccc!important}summary::after{display:none}.review-list{display:block}.review-list details{margin:0 0 10px}.review-part{background:#fff!important}.result-heading h2{font-size:22pt}.table-wrap{overflow:visible}.num{white-space:nowrap}.review-status{font-size:9pt}.site-header+main{padding-top:0}body[data-theme=dark]{--ink:#111;--muted:#444;--paper:#fff;--soft:#f7f7f7;--line:#bbb;--tri-fill:#d8ebe2;--tri-line:#224d40;--dim:#536c70;--accent:#245f4a;--accent-dark:#245f4a;--grid:#eee;--tint:#f1f6f3;--bad-bg:#fff;--amber-bg:#fff}}
+</style>
 </head>
-<body>
-  <img src="https://lirp.cdn-website.com/b085c470/dms3rep/multi/opt/Bucks%2BCollege%2BGroup-e5af1b68-1920w.jpg"
-       alt="Bucks College Group logo" class="logo">
-
-  <h1>Pythagoras &amp; Basic Trigonometry — Right Triangles (Civil Engineering)</h1>
-  <p class="lede">Right‑angle geometry for ramps, stays, reach and set‑out. <strong>Right‑angled triangles only.</strong> All answers to <strong>2 dp</strong>. Angle values are stated in the question text; the diagram shows symbols only.</p>
-
-  <div class="topbar">
-    <div style="display:flex;gap:0.6rem;align-items:center">
-      <div class="badge" id="who"><span id="whoName">Student</span><small>Participant</small></div>
-      <div class="badge" id="mode"><span id="modeTxt">Timed</span><small>Mode</small></div>
-      <div class="badge" id="timer"><span id="timeTxt">—</span><small>Timer</small></div>
-      <div class="badge" id="scoreTop"><span id="scoreTopVal">0 / 0</span><small>Score</small></div>
+<body data-theme="light" data-size="normal" data-overlay="none">
+<a class="skip-link" href="#main">Skip to worksheet</a>
+<header class="site-header"><div class="wrap header-row">
+ <div><p class="eyebrow">Civil engineering · Right triangles</p><h1>Pythagoras &amp; basic trigonometry</h1><p class="header-sub">Right-angle geometry for ramps, stays, reach and set-out.</p></div>
+ <div class="header-actions"><span class="college">Bucks College Group</span><button type="button" id="displayBtn">Aa &nbsp; Display</button><button type="button" id="fsBtn">⛶ &nbsp; Full screen</button></div>
+</div></header>
+<main id="main" class="wrap main" tabindex="-1">
+ <div id="fatalError" class="notice error" role="alert" hidden></div>
+ <div id="storageNotice" class="notice small-copy" hidden></div>
+ <div id="resumeCard" class="notice resume-card" hidden><div class="row between"><div><strong id="resumeTitle">Your previous session is saved</strong><p id="resumeText" class="small-copy muted"></p></div><div class="button-row"><button class="primary small" id="resumeBtn" type="button">Resume session</button><button class="small" id="discardBtn" type="button">Discard saved session</button></div></div></div>
+ <section id="setupView" aria-labelledby="setupHeading">
+  <div class="setup-layout">
+   <div class="card card-pad intro"><p class="eyebrow">Geometry workshop</p><h2>Right-angle geometry.<br>Real site contexts.</h2><p class="intro-lede">Work through the same ten civil-engineering question types, one question at a time.<br>Each question asks for two values, using Pythagoras and basic trigonometry.</p>
+    <div class="intro-art" aria-hidden="true"><svg viewBox="0 0 490 180" xmlns="http://www.w3.org/2000/svg"><path d="M35 145H410V30Z" fill="#2c5b5d" stroke="#a8dfcd" stroke-width="2"/><path d="M392 145V127H410" fill="none" stroke="#a8dfcd" stroke-width="2"/><path d="M78 145 A43 43 0 0 0 76 133" fill="none" stroke="#a8dfcd" stroke-width="2"/><text x="99" y="135" fill="#e8f8f1" font-family="system-ui" font-size="25">θ</text><text x="378" y="69" fill="#e8f8f1" font-family="system-ui" font-size="25">φ</text><path d="M35 163H410 M35 156V170 M410 156V170" fill="none" stroke="#658e91"/><path d="M429 30V145 M422 30H436 M422 145H436" fill="none" stroke="#658e91"/></svg></div>
+    <div class="intro-bottom"><div><strong>10</strong><span>Original question types</span></div><div><strong>2 parts</strong><span>In every question</span></div><div><strong>2 dp</strong><span>For final answers</span></div></div>
+   </div>
+   <form id="setupForm" class="card card-pad setup-form" novalidate><p class="eyebrow">Set up your session</p><h2 id="setupHeading">Ready to work it out?</h2><p class="small-copy muted">Use a calculator in degree mode. All triangles are right-angled.</p>
+    <div class="form-body">
+     <div class="field"><label for="nameInput">Your name <span class="muted">(optional)</span></label><input id="nameInput" type="text" maxlength="80" autocomplete="off" placeholder="Enter your name"></div>
+     <fieldset><legend>Choose your mode</legend><div class="mode-options"><label class="mode-option"><input type="radio" name="mode" value="timed" checked><span>Timed<small>Practise until the time ends, or choose unlimited.</small></span></label><label class="mode-option"><input type="radio" name="mode" value="target"><span>Target<small>Finish when enough two-part questions are accepted.</small></span></label></div></fieldset>
+     <div class="field-grid"><div class="field" id="timedField"><label for="timeSelect">Time limit</label><select id="timeSelect"><option value="600">10 minutes</option><option value="1200" selected>20 minutes</option><option value="1800">30 minutes</option><option value="0">Unlimited</option></select></div><div class="field" id="targetField" hidden><label for="targetInput">Fully accepted questions to finish</label><input id="targetInput" type="number" min="1" max="1000" step="1" value="10" inputmode="numeric"><small>Both parts must be within tolerance.</small></div><div class="field"><label for="qtyInput">Questions per generated set</label><select id="qtyInput"><option value="8">8 questions</option><option value="10" selected>10 questions</option><option value="12">12 questions</option><option value="15">15 questions</option></select></div></div>
+     <div class="tolerance-banner"><div class="tolerance-number">±1.00</div><div><strong>Inclusive answer tolerance</strong><p>Metres for lengths; degrees for angles.<br>Answer controls adjust by 0.01.</p></div></div>
+     <p id="modeDescription" class="tiny muted">Fresh sets continue until the timer finishes. Unlimited sessions end when you choose Finish session.</p>
+     <div id="setupError" class="notice error small-copy" role="alert" hidden></div>
+     <button id="startBtn" class="primary start-button" type="submit">Start worksheet &nbsp; →</button>
+     <p class="tiny muted">Questions, marking and diagrams work offline. No sign-in required.</p>
     </div>
-    <div class="top-actions">
-      <button class="fsBtn" id="fsBtn" title="Toggle full screen">⛶ Full screen</button>
-    </div>
+   </form>
   </div>
-
-  <!-- Quick refresher only -->
-  <div class="card" id="globalHint">
-    <details open>
-      <summary>Quick refresher (formulas)</summary>
-      <div class="hint">
-        <ul>
-          <li><strong>Pythagoras:</strong> \(a^2+b^2=c^2\) (hypotenuse \(c\)).</li>
-          <li><strong>Basic trigonometry:</strong> \(\sin\theta=\frac{\text{opp}}{\text{hyp}},\ \cos\theta=\frac{\text{adj}}{\text{hyp}},\ \tan\theta=\frac{\text{opp}}{\text{adj}}\).</li>
-          <li><strong>Rearrange as needed.</strong> Round final answers to <strong>2 dp</strong>.</li>
-        </ul>
-      </div>
-    </details>
+  <details class="content-list"><summary>The ten question types in this worksheet</summary><div class="details-body"><ol id="contentList"></ol></div></details>
+ </section>
+ <section id="sessionView" aria-labelledby="qTitle" hidden>
+  <div class="session-toolbar"><div class="card stat"><span class="stat-label">Participant</span><span id="whoName" class="stat-value">Student</span></div><div class="card stat"><span class="stat-label" id="modeLabel">Mode</span><span id="modeText" class="stat-value">Timed</span></div><div class="card stat" id="timerStat"><span class="stat-label" id="timerLabel">Time remaining</span><span id="timeText" class="stat-value">20:00</span></div><div class="card stat"><span class="stat-label">Questions accepted</span><span id="scoreText" class="stat-value">0 / 0</span></div><div class="session-buttons"><button type="button" id="newBtn">New session</button><button type="button" id="finishBtn">Finish session</button></div></div>
+  <div class="question-heading"><div><p class="eyebrow" id="progressText">Question 1 · Set 1</p><h2 id="qTitle" tabindex="-1">Question</h2></div><span class="pill">Pythagoras + trig</span></div>
+  <div class="progress-track" role="progressbar" aria-label="Questions submitted in this set" id="setProgress" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0"><div id="progressFill"></div></div>
+  <div class="question-layout">
+   <article class="card question-main"><div id="statement" class="statement"></div><figure class="diagram-section"><div class="diagram-header"><figcaption id="diagramCaption" class="diagram-caption">To-scale right triangle</figcaption><button type="button" class="small" id="zoomBtn">Enlarge diagram</button></div><div class="diagram-frame" id="diagramFrame" tabindex="0" aria-label="Triangle diagram. Scroll horizontally if needed."></div><div class="diagram-foot"><span>Use the stated dimensions, not measurements from the screen.</span><span>Scroll the diagram on small screens.</span></div></figure></article>
+   <aside class="side-rail" aria-label="Answers and support">
+    <form id="answerForm" class="card answer-panel" novalidate><h3>Your two answers</h3><p class="answer-instruction">Enter both values to 2 decimal places.</p><div id="io"></div><div class="answer-actions"><button id="checkBtn" class="primary" type="submit">Check both answers</button><button id="nextBtn" class="primary" type="button" hidden>Next question &nbsp; →</button><button id="writeBtn" type="button">✎ &nbsp; Write / working space</button><button id="revealBtn" class="link small" type="button">Reveal answers · no credit</button></div><div id="checkMessage" class="check-message" role="status" aria-live="polite" hidden></div><p class="marking-note"><strong>Accepted: ±1.00 inclusive.</strong> Values are rounded to 2 dp before checking. Exact answers and tolerance-only acceptances are recorded separately.</p></form>
+    <details id="formulaBox"><summary>Quick refresher · formulas</summary><div class="details-body formula-box"><div><p class="tiny muted">PYTHAGORAS</p><div class="formula-line"><span>a² + b² = c²</span><small>c is the hypotenuse.</small></div></div><div class="formula-group"><p class="tiny muted">BASIC TRIGONOMETRY</p><div class="formula-line"><span>sin θ =</span><span class="frac"><span>opposite</span><span>hypotenuse</span></span></div><div class="formula-line"><span>cos θ =</span><span class="frac"><span>adjacent</span><span>hypotenuse</span></span></div><div class="formula-line"><span>tan θ =</span><span class="frac"><span>opposite</span><span>adjacent</span></span></div></div><p class="formula-tip">Rearrange as needed.<br>Round final answers to <strong>2 dp</strong>.<br>Use your calculator in <strong>degree (DEG) mode</strong>.</p></div></details>
+    <details id="whyBox"><summary>Why this matters</summary><div id="whyContent" class="details-body why-content"></div></details>
+    <div class="card card-pad"><label class="note-label" for="typedNote">Typed working <span class="tiny muted">Optional</span></label><textarea id="typedNote" class="typed-note" maxlength="8000" placeholder="Record your calculation or method…"></textarea><p id="saveStatus" class="auto-note" aria-live="polite">Saved in this browser when available.</p></div>
+   </aside>
   </div>
-
-  <!-- Question card -->
-  <div class="card" id="qCard" style="display:none">
-    <div class="titleRow">
-      <div>
-        <div class="qTitle" id="qTitle">Question</div>
-        <div class="qMeta">Use the to‑scale diagram. Enter each requested value to <strong>2 dp</strong>, then click <strong>Check</strong>.</div>
-      </div>
-      <div class="qMeta" id="progress">Question 1</div>
-    </div>
-
-    <div class="statement" id="statement"></div>
-
-    <!-- No formula tab by request -->
-
-    <details id="whyBox">
-      <summary>Why this matters (click to expand)</summary>
-      <div class="hint" id="whyHtml"></div>
-    </details>
-
-    <div class="io" id="io"></div>
-
-    <div class="controls">
-      <button class="primary" id="checkBtn">Check</button>
-      <button class="ghost" id="nextBtn" disabled>Next</button>
-      <button class="secondary" id="newBtn">New questions</button>
-    </div>
-  </div>
-
-  <!-- End summary -->
-  <div id="endCard">
-    <h3>Summary</h3>
-    <p class="wellDone" id="endMsg"></p>
-    <ul>
-      <li><strong>Name:</strong> <span id="sumName"></span></li>
-      <li><strong>Mode:</strong> <span id="sumMode"></span></li>
-      <li><strong>Score:</strong> <span id="sumScore"></span></li>
-      <li><strong>Time used:</strong> <span id="sumTime"></span></li>
-    </ul>
-    <div style="display:flex;gap:.6rem;justify-content:center;margin-top:.4rem">
-      <button class="secondary" id="restartBtn">Restart</button>
-    </div>
-  </div>
-
-  <!-- Start menu modal -->
-  <div class="modal" id="startModal">
-    <div class="panel">
-      <header><h2>Start Worksheet</h2></header>
-      <div class="content">
-        <div class="field">
-          <label for="nameInput"><strong>Your name</strong></label>
-          <input id="nameInput" type="text" placeholder="Type your name…" autocomplete="name">
-        </div>
-
-        <div class="field">
-          <label><strong>Mode</strong></label>
-          <div class="choiceRow">
-            <label class="pill"><input type="radio" name="mode" value="timed" checked>Timed</label>
-            <label class="pill"><input type="radio" name="mode" value="target">Target</label>
-          </div>
-        </div>
-
-        <div class="grid2">
-          <div class="field" id="timedField" style="display:block">
-            <label><strong>Time limit</strong></label>
-            <div class="choiceRow">
-              <label class="pill"><input type="radio" name="tlimit" value="600">10 minutes</label>
-              <label class="pill"><input type="radio" name="tlimit" value="1200" checked>20 minutes</label>
-              <label class="pill"><input type="radio" name="tlimit" value="1800">30 minutes</label>
-              <label class="pill"><input type="radio" name="tlimit" value="0">Unlimited</label>
-            </div>
-          </div>
-
-          <div class="field" id="targetField" style="display:none">
-            <label for="targetInput"><strong>Target (correct answers to finish)</strong></label>
-            <input id="targetInput" type="number" min="1" max="1000" step="1" value="10">
-          </div>
-        </div>
-
-        <div class="grid2">
-          <div class="field">
-            <label for="qtyInput"><strong>Total questions (per set)</strong></label>
-            <select id="qtyInput">
-              <option value="8">8</option>
-              <option value="10" selected>10</option>
-              <option value="12">12</option>
-              <option value="15">15</option>
-            </select>
-          </div>
-          <div class="field">
-            <div class="muted">Diagrams are to scale. Symbols show angle positions only (values are stated in the text). Answers to <strong>2 dp</strong>.</div>
-          </div>
-        </div>
-      </div>
-      <footer>
-        <span class="muted">You can generate a fresh random set any time.</span>
-        <div>
-          <button class="primary" id="startBtn">Start worksheet</button>
-        </div>
-      </footer>
-    </div>
-  </div>
-
-  <div id="errBanner" style="display:none;position:fixed;bottom:10px;left:50%;transform:translateX(-50%);
-    background:#fee;border:2px solid #e53935;color:#7f1d1d;padding:.5rem .8rem;border-radius:10px;font-weight:800;z-index:2000"></div>
-  <noscript><div style="margin:1rem auto;max-width:980px;color:#b91c1c;background:#fee;border:2px solid #e11d48;padding:.6rem;border-radius:12px;font-weight:800">This worksheet needs JavaScript enabled.</div></noscript>
-
-<script>
+ </section>
+ <section id="resultsView" aria-labelledby="resultsTitle" hidden>
+  <div class="card result-heading"><div><p class="eyebrow">Session summary</p><h2 id="resultsTitle" tabindex="-1">Session complete</h2><p id="resultsMeta"></p></div><div class="result-score"><strong id="resultsScore">0 / 0</strong><span>fully accepted questions</span></div></div>
+  <div class="result-stats"><div class="card result-stat"><strong id="resultsParts">0 / 0</strong><span>Accepted answer parts</span></div><div class="card result-stat"><strong id="resultsExact">0</strong><span>Exact answer parts</span></div><div class="card result-stat"><strong id="resultsTolerance">0</strong><span>Tolerance-only parts</span></div><div class="card result-stat"><strong id="resultsTime">0:00</strong><span>Time used</span></div></div>
+  <div id="resultsNotice" class="notice small-copy"></div>
+  <div class="button-row results-buttons" style="margin-bottom:22px"><button id="restartBtn" type="button" class="primary">Start a new session</button><button id="csvBtn" type="button">Export results (CSV)</button><button id="copyBtn" type="button">Copy summary</button><button id="printBtn" type="button">Print results</button></div>
+  <section class="card" style="margin-bottom:22px" aria-labelledby="topicTitle"><div class="table-heading"><h3 id="topicTitle">By question context</h3></div><div class="table-wrap"><table><thead><tr><th scope="col">Context</th><th scope="col" class="num">Submitted</th><th scope="col" class="num">Accepted questions</th><th scope="col" class="num">Accepted parts</th></tr></thead><tbody id="topicRows"></tbody></table></div></section>
+  <div class="row between" style="margin-bottom:13px"><h3>Review your questions</h3><button id="expandReviewBtn" type="button" class="small">Expand all</button></div><div id="reviewList" class="review-list"></div>
+ </section>
+</main>
+<footer class="site-footer"><span>Classroom geometry practice only. These simplified scenarios are not construction tolerances, design approvals or site safety instructions.</span><span id="footerBuild">Geometry workshop · v2.0</span></footer>
+<dialog id="confirmDialog" class="confirm-dialog" aria-labelledby="confirmTitle"><div class="dialog-head"><h2 id="confirmTitle">Confirm</h2></div><div class="dialog-body"><p id="confirmText"></p></div><div class="dialog-foot"><button id="confirmCancel" type="button">Cancel</button><button id="confirmOK" type="button" class="primary">Continue</button></div></dialog>
+<dialog id="displayDialog" class="display-settings" aria-labelledby="displayTitle"><div class="dialog-head"><h2 id="displayTitle">Display settings</h2><button class="small" data-close="displayDialog" type="button">Close</button></div><div class="dialog-body settings-grid"><div class="field"><label for="themeSelect">Colour theme</label><select id="themeSelect"><option value="light">Light</option><option value="dark">Dark</option></select></div><div class="field"><label for="sizeSelect">Text size</label><select id="sizeSelect"><option value="normal">Standard</option><option value="large">Larger</option></select></div><div class="field"><label for="overlaySelect">Reading background</label><select id="overlaySelect"><option value="none">Default</option><option value="cream">Soft cream (light theme)</option><option value="blue">Pale blue (light theme)</option></select></div></div></dialog>
+<dialog id="diagramDialog" class="diagram-dialog" aria-labelledby="largeDiagramTitle"><div class="dialog-head"><h2 id="largeDiagramTitle">Triangle diagram</h2><button data-close="diagramDialog" class="small" type="button">Close</button></div><div id="largeDiagram" class="diagram-frame" tabindex="0"></div></dialog>
+<dialog id="workDialog" class="work-dialog" aria-labelledby="workTitle"><div class="work-layout"><div class="dialog-head"><h2 id="workTitle">Working space</h2><button data-close="workDialog" type="button" class="primary small">Back to answers</button></div><div class="work-top"><div id="workStatement" class="statement"></div><div id="workMini" class="work-mini" role="button" tabindex="0" aria-label="Enlarge the triangle diagram"></div></div><div class="work-tools"><div class="button-row"><button type="button" id="penBtn" aria-pressed="true">Pen</button><button type="button" id="eraserBtn" aria-pressed="false">Eraser</button><button type="button" id="penColourBtn" aria-label="Change pen colour. Current: dark ink">Ink: dark</button><button type="button" id="penWidthBtn">Width: medium</button></div><div class="button-row"><button type="button" id="undoBtn">Undo</button><button type="button" id="redoBtn">Redo</button><button type="button" id="gridBtn" aria-pressed="true">Grid</button><button type="button" id="clearCanvasBtn">Clear</button></div></div><div id="canvasShell" class="canvas-shell"><canvas id="workCanvas" aria-label="Drawing area for calculations. Typed working is available on the question screen."></canvas><div id="canvasPlaceholder" class="canvas-placeholder">Write your working here.</div></div><div class="work-bottom"><span>Your working stays with this question.</span><span>Use a mouse, pen or touch. Typed working is also available beside the answers.</span></div></div></dialog>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<noscript><div class="notice error">This worksheet needs JavaScript enabled to generate and mark questions.</div></noscript>
+<script id="civil-trig-engine">/* Civil Engineering Geometry Workshop — self-contained, no remote dependencies.
+ * The question wording is retained from the supplied worksheet.
+ * The marking tolerance is FIXED at ±1.00 in the answer's displayed unit.
+ * All checks compare integer hundredths, inclusively, to the 2 dp model answer.
+ */
+(function (root) {
 'use strict';
-
-window.addEventListener('error', (e) => {
-  const b = document.getElementById('errBanner');
-  b.textContent = 'Error: ' + (e.message || 'Unknown script error');
-  b.style.display = 'block';
-});
-
-window.addEventListener('DOMContentLoaded', () => {
-
-  /* ========= Helpers ========= */
-  const rnd=(m,M)=>Math.floor(Math.random()*(M-m+1))+m;
-  const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
-  const rndf=(min,max,dp=2)=>+((Math.random()*(max-min)+min).toFixed(dp));
-  const round2=x=>Math.round((+x + Number.EPSILON)*100)/100;
-  const to2=x=>isFinite(x)?round2(x).toFixed(2):'—';
-  const parseNum = (input) => {
-    const raw = (typeof input === 'string' ? input : (input?.value ?? '')).toString().trim().replace(',','.');
-    const x = parseFloat(raw);
-    return isFinite(x)?x:NaN;
+const VERSION = '2.0.0';
+const TOLERANCE = 100;
+const BATCHES = [8, 10, 12, 15];
+const TIMES = [0, 600, 1200, 1800];
+const FAMILIES = ['Access ramp','Access ramp','Mast stay','Mast stay','Crane jib','Trench shoring','Roof truss','Retaining wall','Embankment','Platform ramp'];
+const round2 = x => Math.round((x + Number.EPSILON * Math.max(1, Math.abs(x))) * 100) / 100;
+const expectedHundredths = x => {
+  if (!Number.isFinite(x)) throw new TypeError('Non-finite model answer.');
+  return Math.round(round2(x) * 100);
+};
+function formatHundredths(cents) {
+  if (!Number.isSafeInteger(cents)) return '—';
+  const abs = Math.abs(cents);
+  return (cents < 0 ? '−' : '') + Math.floor(abs / 100) + '.' + String(abs % 100).padStart(2, '0');
+}
+function inputHundredths(cents) { return formatHundredths(cents).replace('−', '-'); }
+function parseHundredths(raw) {
+  // Strict parsing: no scientific notation, expression evaluation, units or trailing junk.
+  // UK thousands separators are accepted; a lone comma with 1–2 decimals is also accepted.
+  let text = String(raw ?? '').trim().replace(/\u2212/g, '-');
+  if (!text || text.length > 32) return {valid:false, error:'Enter a number, for example 12.34.'};
+  if (/^[+-]?\d{1,3}(,\d{3})+(\.\d{0,6})?$/.test(text)) text = text.replace(/,/g, '');
+  else if (/^[+-]?\d*,\d{1,2}$/.test(text)) text = text.replace(',', '.');
+  if (!/^[+-]?(?:\d{1,9}(?:\.\d{0,6})?|\.\d{1,6})$/.test(text)) {
+    return {valid:false, error:'Use a number only, without units or calculations.'};
+  }
+  const negative = text[0] === '-';
+  text = text.replace(/^[+-]/, '');
+  const [whole = '0', fraction = ''] = text.split('.');
+  const digits = fraction.padEnd(3, '0');
+  let cents = Number(whole || '0') * 100 + Number(digits.slice(0, 2));
+  if (Number(digits[2]) >= 5) cents += 1;
+  if (negative) cents = -cents;
+  if (!Number.isSafeInteger(cents)) return {valid:false, error:'This number is too large.'};
+  if (Object.is(cents, -0)) cents = 0;
+  return {valid:true, cents, text:inputHundredths(cents), rounded:fraction.length > 2};
+}
+function markValue(raw, expected) {
+  const parsed = parseHundredths(raw);
+  if (!parsed.valid) return parsed;
+  const model = expectedHundredths(expected);
+  const difference = parsed.cents - model;
+  return {...parsed, model, difference, accepted:Math.abs(difference) <= TOLERANCE, exact:difference === 0};
+}
+function seeded(seed) {
+  let n = seed >>> 0;
+  return function () {
+    n = (n + 0x6D2B79F5) >>> 0;
+    let t = Math.imul(n ^ n >>> 15, n | 1);
+    t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
   };
-  const deg = r=>r*180/Math.PI;
-  const rad = d=>d*Math.PI/180;
-  const eq2dp=(a,b)=>isFinite(a)&&isFinite(b)&&round2(a)===round2(b);
-  const secsToMMSS=s=>{const m=Math.floor(s/60), ss=String(s%60).padStart(2,'0'); return `${m}:${ss}`;};
-
-  const unit = (u) => ({ m:'m', deg:'°' }[u]||u);
-
-  /* ========= SVG core (larger, symbols only inside; labels offset) ========= */
-  function figWrap(viewW, viewH, inner){
-    return `<svg class="fig" viewBox="0 0 ${viewW} ${viewH}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="diagram">
-      <defs>
-        <style>
-          .tri{stroke:#1f2a44;stroke-width:2}
-          .tri.c1{fill:rgba(106,92,255,.24)}     /* purple */
-          .tri.c2{fill:rgba(0,194,255,.22)}      /* cyan */
-          .tri.c3{fill:rgba(255,159,67,.22)}     /* orange */
-          .tri.c4{fill:rgba(34,197,94,.22)}      /* green */
-          .tri.c5{fill:rgba(236,72,153,.22)}     /* pink */
-          .tri.c6{fill:rgba(14,165,233,.22)}     /* sky */
-          .tri.c7{fill:rgba(250,204,21,.22)}     /* amber */
-
-          .aux{stroke:#334155;stroke-dasharray:6 4;stroke-width:2;fill:none}
-          .tick{stroke:#1f2a44;stroke-width:2}
-          .dim{
-            font:700 21px/1 Inter, system-ui;  /* ≈ +50% */
-            fill:#0f172a;
-            paint-order:stroke fill; stroke:#ffffff; stroke-width:3px;
-          }
-          .ang{
-            font:800 26px/1.1 Inter, system-ui; /* symbols a bit larger */
-            fill:#1e2a66;
-            paint-order:stroke fill; stroke:#ffffff; stroke-width:3.5px;
-          }
-          .label{font:800 16px/1 Inter, system-ui; fill:#2c3477; paint-order:stroke fill; stroke:#fff; stroke-width:1.5px;}
-          .ra{fill:#ffffff;stroke:#1f2a44;stroke-width:2}
-        </style>
-      </defs>
-      ${inner}
-    </svg>`;
-  }
-
-  // Ensure triangle fits area; enforce minimum base width in px
-  function scaleToBoxMin(run, rise, maxW=560, maxH=320, minBasePx=340){
-    let s = Math.min(maxW/Math.max(run,1e-6), maxH/Math.max(rise,1e-6));
-    const base1 = run*s, height1 = rise*s;
-    if(base1 < minBasePx){
-      const sTry = minBasePx/Math.max(run,1e-6);
-      if(rise*sTry <= maxH && minBasePx <= maxW){ s = sTry; }
-    }
-    return { base: run*s, height: rise*s };
-  }
-  const insetFor = lenPx => clamp(lenPx*0.12, 12, 30);
-
-  // Base dimension with extensions/ticks; TEXT OFFSET so it does not sit on the dashed line
-  function dimBase(x0,y0,x1,label){
-    const L=x1-x0, inset=insetFor(L), off=46, ext=26, dimY=y0+off;
-    return `
-      <line x1="${x0}" y1="${y0}" x2="${x0}" y2="${dimY+ext}" class="aux"/>
-      <line x1="${x1}" y1="${y0}" x2="${x1}" y2="${dimY+ext}" class="aux"/>
-      <line x1="${x0+inset}" y1="${dimY}" x2="${x1-inset}" y2="${dimY}" class="aux"/>
-      <line x1="${x0+inset}" y1="${dimY-7}" x2="${x0+inset}" y2="${dimY+7}" class="tick"/>
-      <line x1="${x1-inset}" y1="${dimY-7}" x2="${x1-inset}" y2="${dimY+7}" class="tick"/>
-      ${label?`<text x="${(x0+x1)/2}" y="${dimY+18}" text-anchor="middle" dominant-baseline="hanging" class="dim">${label}</text>`:''}
-    `;
-  }
-
-  // Rise dimension to the right; TEXT OFFSET to the right (no overlap with dashed line)
-  function dimRise(x1,y1,y2,label){
-    const H=y1-y2, inset=insetFor(H), off=44, ext=26, dimX=x1+off, top=y2, bot=y1;
-    const yTop=top+inset, yBot=bot-inset;
-    return `
-      <line x1="${x1}" y1="${bot}" x2="${dimX+ext}" y2="${bot}" class="aux"/>
-      <line x1="${x1}" y1="${top}" x2="${dimX+ext}" y2="${top}" class="aux"/>
-      <line x1="${dimX}" y1="${yTop}" x2="${dimX}" y2="${yBot}" class="aux"/>
-      <line x1="${dimX-7}" y1="${yTop}" x2="${dimX+7}" y2="${yTop}" class="tick"/>
-      <line x1="${dimX-7}" y1="${yBot}" x2="${dimX+7}" y2="${yBot}" class="tick"/>
-      ${label?`<text x="${dimX+18}" y="${(yTop+yBot)/2}" text-anchor="start" dominant-baseline="middle" class="dim">${label}</text>`:''}
-    `;
-  }
-
-  // Hypotenuse dimension parallel to edge; TEXT OFFSET away from dashed line along outward normal
-  function dimHyp(Ax,Ay,Bx,By,Cx,Cy,label){
-    if(!label) return '';
-    const dx=Cx-Ax, dy=Cy-Ay, L=Math.hypot(dx,dy)||1;
-    const tx=dx/L, ty=dy/L;
-    const nx=-ty, ny=tx;
-    const Gx=(Ax+Bx+Cx)/3, Gy=(Ay+By+Cy)/3;
-    const Mx=(Ax+Cx)/2,  My=(Ay+Cy)/2;
-    const dot = (nx*(Mx-Gx) + ny*(My-Gy));
-    const nOutX = (dot>=0? nx : -nx), nOutY=(dot>=0? ny : -ny);
-
-    const inset=insetFor(L), off=36, ext=26;
-    const P1x=Ax + nOutX*off + tx*inset, P1y=Ay + nOutY*off + ty*inset;
-    const P2x=Cx + nOutX*off - tx*inset, P2y=Cy + nOutY*off - ty*inset;
-
-    const EA1x1=Ax + nOutX*2, EA1y1=Ay + nOutY*2;
-    const EA1x2=Ax + nOutX*(off+ext), EA1y2=Ay + nOutY*(off+ext);
-    const EA2x1=Cx + nOutX*2, EA2y1=Cy + nOutY*2;
-    const EA2x2=Cx + nOutX*(off+ext), EA2y2=Cy + nOutY*(off+ext);
-
-    const midx=(P1x+P2x)/2, midy=(P1y+P2y)/2;
-    const angle = Math.atan2(P2y-P1y, P2x-P1x)*180/Math.PI;
-
-    const labOff=18;  // push text away from the dashed line
-    const lx = midx + nOutX*labOff;
-    const ly = midy + nOutY*labOff;
-
-    return `
-      <line x1="${EA1x1}" y1="${EA1y1}" x2="${EA1x2}" y2="${EA1y2}" class="aux"/>
-      <line x1="${EA2x1}" y1="${EA2y1}" x2="${EA2x2}" y2="${EA2y2}" class="aux"/>
-      <line x1="${P1x}" y1="${P1y}" x2="${P2x}" y2="${P2y}" class="aux"/>
-      <text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle"
-        class="dim" transform="rotate(${angle} ${lx} ${ly})">${label}</text>
-    `;
-  }
-
-  // Angle symbol at base-left A (always inside along bisector)
-  function angleSymbolA(x0,y0, basePx, risePx, sym='θ'){
-    if(!sym) return '';
-    const L=Math.hypot(basePx,risePx)||1;
-    const uBaseX=1, uBaseY=0;
-    const uHypX=basePx/L, uHypY=-risePx/L;
-    let bx=uBaseX+uHypX, by=uBaseY+uHypY; const bL=Math.hypot(bx,by)||1; bx/=bL; by/=bL;
-    const d=clamp(Math.min(basePx,risePx)*0.33, 26, 56);
-    const lx = x0 + bx*d, ly = y0 + by*d;
-    return `<text x="${lx}" y="${ly}" class="ang">${sym}</text>`;
-  }
-
-  // Angle symbol at top-right C (always inside)
-  function angleSymbolC(x2,y2, basePx, risePx, sym='φ'){
-    if(!sym) return '';
-    const L=Math.hypot(basePx,risePx)||1;
-    const uDownX=0, uDownY=1;
-    const uToA_X = -(basePx)/L, uToA_Y = (risePx)/L;
-    let bx=uDownX+uToA_X, by=uDownY+uToA_Y; const bL=Math.hypot(bx,by)||1; bx/=bL; by/=bL;
-    const d=clamp(Math.min(basePx,risePx)*0.30, 24, 52);
-    const lx = x2 + bx*d, ly = y2 + by*d;
-    return `<text x="${lx}" y="${ly}" class="ang">${sym}</text>`;
-  }
-
-  function pickTriClass(){ return 'c' + rnd(1,7); }
-  function pickAltGreek(){ return ['φ','α','β','γ','δ','ψ'][rnd(0,5)]; }
-
-  /**
-   * Draw right triangle A(x0,y0)->B(x1,y1) base, up to C(x2,y2).
-   * Right angle at B (square). Only symbols (no numeric angles) inside the triangle.
-   */
-  function svgRightTriangle(runVal, riseVal, opts={}){
-    const { angleASym='θ', angleCSym='φ', showRunTxt='', showRiseTxt='', showHypTxt='', caption='Right triangle', triClass='c1' } = opts;
-    const w=860, h=540;           // larger SVG canvas
-    const padL=110, padB=400;     // generous bottom pad for base dimension
-    const { base, height } = scaleToBoxMin(runVal, riseVal, 560, 320, 340);
-    const x0=padL, y0=padB;          // A
-    const x1=x0+base, y1=y0;         // B
-    const x2=x1,     y2=y0-height;   // C
-
-    // right-angle square at B
-    const ra=18; const raPoly=`${x1-ra},${y1} ${x1-ra},${y1-ra} ${x1},${y1-ra} ${x1},${y1}`;
-
-    const inner=`
-      <text x="${w/2}" y="30" text-anchor="middle" class="label">${caption}</text>
-      <polygon points="${x0},${y0} ${x1},${y1} ${x2},${y2}" class="tri ${triClass}"/>
-      <polygon points="${raPoly}" class="ra"/>
-      ${angleSymbolA(x0,y0, base, height, angleASym)}
-      ${angleSymbolC(x2,y2, base, height, angleCSym)}
-      ${dimBase(x0,y0,x1, showRunTxt)}
-      ${dimRise(x1,y1,y2, showRiseTxt)}
-      ${dimHyp(x0,y0,x1,y1,x2,y2, showHypTxt)}
-    `;
-    return figWrap(w,h,inner);
-  }
-
-  /* ========= Multi-answer IO builder ========= */
-  function buildIORows(parts){
-    const io = document.getElementById('io');
-    io.innerHTML = '';
-    parts.forEach((p,i) => {
-      const row = document.createElement('div');
-      row.className = 'row';
-      row.innerHTML = `
-        <label>${p.prompt}</label>
-        <input class="num" id="ans-${i}" type="text" inputmode="decimal" autocomplete="off" placeholder="e.g. 12.34">
-        <span class="unit">${unit(p.unit)}</span>
-        <span class="marker" id="mark-${i}"></span>
-        <span class="feedback" id="fb-${i}"></span>
-      `;
-      io.appendChild(row);
-    });
-    io.querySelectorAll('input.num').forEach(inp=>{
-      inp.addEventListener('blur', ()=>{
-        const x = parseNum(inp.value);
-        if(isFinite(x)) inp.value = to2(x);
-      });
-    });
-  }
-
-  /* ========= Question generators (ALL require both trig + Pythagoras, 2 parts each) ========= */
-
+}
+function generateQuestion(type, seed) {
+  if (!Number.isInteger(type) || type < 0 || type > 9) throw new RangeError('Unknown question type.');
+  if (!Number.isInteger(seed) || seed < 0 || seed > 4294967295) throw new RangeError('Invalid question seed.');
+  const random = seeded(seed);
+  const rnd = (m,M) => Math.floor(random() * (M-m+1)) + m;
+  const rndf = (min,max,dp=2) => +((random() * (max-min) + min).toFixed(dp));
+  const rad = d => d * Math.PI / 180;
+  const deg = r => r * 180 / Math.PI;
+  const pickAltGreek = () => ['φ','α','β','γ','δ','ψ'][rnd(0,5)];
+  const pickTriClass = () => 'c' + rnd(1,7);
+  // Descriptor only: an accessible SVG is rendered by the presentation layer.
+  const svgRightTriangle = (run, rise, opts) => ({run, rise, ...opts});
   // 1) Access ramp: θ and slope, given run & rise
   function qRamp_theta_and_slope_from_run_rise(){
     const run = rndf(3.5, 9.0, 2);
@@ -758,12 +402,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // 8) Retaining wall: set‑back & slope from height & face angle θ
   function qWall_setback_and_slope_from_height_theta(){
-    const height = rndf(2.0, 5.0, 2);
-    let theta, setback;
-    do{
-      theta = rndf(72, 83, 2);
-      setback = height / Math.tan(rad(theta)); // trig
-    }while(setback < 0.8);
+    // A 0.80 m minimum set-back cannot occur for a 2.00 m wall at 72–83°.
+    // Sample directly from the feasible original combinations; never retry in a loop.
+    const minHeight = Math.ceil(0.8 * Math.tan(rad(72)) * 100) / 100;
+    const height = rndf(minHeight, 5.0, 2);
+    const maxAngle = Math.floor(Math.min(83, deg(Math.atan(height / 0.8))) * 100) / 100;
+    const theta = rndf(72, maxAngle, 2);
+    const setback = height / Math.tan(rad(theta));
     const slope = Math.sqrt(setback*setback + height*height); // Pythag
     const alt = pickAltGreek();
     return {
@@ -799,8 +444,10 @@ window.addEventListener('DOMContentLoaded', () => {
   function qEmbankment_rise_and_theta_from_slope_run(){
     const run = rndf(6.0, 18.0, 2);
     const thetaTarget = rndf(10, 30, 2);
-    const rise = Math.tan(rad(thetaTarget))*run;
-    const slope = Math.sqrt(run*run + rise*rise);
+    const generatingRise = Math.tan(rad(thetaTarget))*run;
+    const slope = round2(Math.hypot(run, generatingRise));
+    // The slope is a GIVEN rounded to 2 dp. Solve from that displayed value.
+    const rise = Math.sqrt(slope*slope - run*run);
     const theta = deg(Math.atan(rise/run));
     const alt = pickAltGreek();
     return {
@@ -835,8 +482,10 @@ window.addEventListener('DOMContentLoaded', () => {
   function qPlatform_run_and_theta_from_rise_slope(){
     const theta0 = rndf(8, 20, 2);       // only to generate consistent geometry
     const run0 = rndf(4.0, 12.0, 2);
-    const rise = Math.tan(rad(theta0))*run0;
-    const slope = Math.sqrt(run0*run0 + rise*rise);
+    const generatingRise = Math.tan(rad(theta0))*run0;
+    const rise = round2(generatingRise);
+    const slope = round2(Math.hypot(run0, generatingRise));
+    // Both givens are the exact 2 dp numbers shown to the learner.
     const run = Math.sqrt(Math.max(0, slope*slope - rise*rise)); // Pythag
     const theta = deg(Math.atan(rise/run));                      // trig
     const alt = pickAltGreek();
@@ -883,178 +532,473 @@ window.addEventListener('DOMContentLoaded', () => {
     qPlatform_run_and_theta_from_rise_slope
   ];
 
-  /* ========= State & elements ========= */
-  let QUESTIONS=[], BATCH=10, idx=0, score=0;
-  let nameStr='Student', mode='timed', timeLeft=0, timerId=null, target=0, correctSoFar=0, unlimited=false;
-  let currentQ=null;
-
-  const el = id=>document.getElementById(id);
-  const $startModal=el('startModal');
-  const $qCard=el('qCard');
-  const $endCard=el('endCard');
-  const $qTitle=el('qTitle'), $statement=el('statement'), $whyHtml=el('whyHtml');
-  const $scoreTopVal=el('scoreTopVal'), $modeTxt=el('modeTxt'), $timeTxt=el('timeTxt');
-
-  function buildSet(n){
-    const gens=[...GENERATORS], qs=[];
-    for(let i=0;i<n;i++){
-      const g = gens.length ? gens.splice(Math.floor(Math.random()*gens.length),1)[0] : GENERATORS[Math.floor(Math.random()*GENERATORS.length)];
-      const q = g();
-      // Attach diagram HTML directly into statement for clarity
-      q.statementHTML = q.statementHTML + q.diagram;
-      qs.push(q);
-    }
-    return qs;
+  const question = GENERATORS[type]();
+  delete question.check;
+  question.type = type;
+  question.seed = seed;
+  question.family = FAMILIES[type];
+  question.fingerprint = type + ':' + (question.statementHTML.match(/\d+(?:\.\d+)?/g) || []).join('|');
+  if (!question.parts.every(p => Number.isFinite(p.val) && p.val > 0)) throw new Error('Invalid generated answer.');
+  if (!(question.diagram.run > 0 && question.diagram.rise > 0)) throw new Error('Invalid generated geometry.');
+  return question;
+}
+function nextRandom(session) {
+  session.rngState = (session.rngState + 0x6D2B79F5) >>> 0;
+  let t = Math.imul(session.rngState ^ session.rngState >>> 15, session.rngState | 1);
+  t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+  return ((t ^ t >>> 14) >>> 0) / 4294967296;
+}
+function shuffledTypes(session) {
+  const ids = [...Array(10).keys()];
+  for (let i=9; i>0; i--) {
+    const j = Math.floor(nextRandom(session) * (i+1));
+    [ids[i],ids[j]] = [ids[j],ids[i]];
   }
-
-  function updateTop(){
-    el('whoName').textContent = nameStr || 'Student';
-    $modeTxt.textContent = mode==='timed' ? 'Timed' : 'Target';
-    $scoreTopVal.textContent = `${score} / ${idx}`;
-    $timeTxt.textContent = (mode==='timed' && !unlimited) ? secsToMMSS(timeLeft) : '—';
+  return ids;
+}
+function appendBatch(session) {
+  const seen = new Set(session.items.map(item => generateQuestion(item.type, item.seed).fingerprint));
+  let types = shuffledTypes(session);
+  let last = session.items.at(-1)?.type ?? -1;
+  for (let i=0; i<session.config.batch; i++) {
+    if (!types.length) types = shuffledTypes(session);
+    if (types[0] === last && types.length > 1) [types[0],types[1]] = [types[1],types[0]];
+    const type = types.shift();
+    let seed, q, attempts=0;
+    do {
+      seed = Math.floor(nextRandom(session) * 4294967296);
+      q = generateQuestion(type, seed);
+      attempts++;
+    } while (seen.has(q.fingerprint) && attempts < 64);
+    if (seen.has(q.fingerprint)) throw new Error('Unable to create a fresh question. Start a new session.');
+    seen.add(q.fingerprint);
+    session.items.push({type,seed,inputs:['',''],kind:'unanswered',note:'',strokes:[]});
+    last = type;
   }
-  function startTimer(){
-    if(mode!=='timed' || unlimited) return;
-    clearInterval(timerId);
-    timerId = setInterval(()=>{
-      timeLeft = Math.max(0, timeLeft-1);
-      $timeTxt.textContent = secsToMMSS(timeLeft);
-      if(timeLeft===0){
-        clearInterval(timerId);
-        finish('Time’s up!');
-      }
-    },1000);
+}
+function validateConfig(config) {
+  const c = {name:String(config.name || '').trim().slice(0,80) || 'Student',mode:config.mode,
+    timeLimit:Number(config.timeLimit),target:Number(config.target),batch:Number(config.batch)};
+  if (!['timed','target'].includes(c.mode)) throw new RangeError('Choose Timed or Target mode.');
+  if (!BATCHES.includes(c.batch)) throw new RangeError('Choose 8, 10, 12 or 15 questions per set.');
+  if (!TIMES.includes(c.timeLimit)) throw new RangeError('Choose a valid time limit.');
+  if (c.mode === 'target' && (!Number.isInteger(c.target) || c.target < 1 || c.target > 1000)) {
+    throw new RangeError('The target must be a whole number from 1 to 1000.');
   }
-
-  function startWorksheet(){
-    BATCH = parseInt(el('qtyInput').value,10);
-    QUESTIONS = buildSet(BATCH);
-    idx=0; score=0; correctSoFar=0;
-    $endCard.style.display='none';
-    $qCard.style.display='block';
-    renderQ();
-    updateTop();
-    if(window.MathJax && window.MathJax.typeset){ MathJax.typeset(); }
-    if(mode==='timed'){ startTimer(); }
+  if (c.mode === 'timed') c.target = 0;
+  return c;
+}
+function createSession(config, seed, now=Date.now()) {
+  const c=validateConfig(config);
+  if (!Number.isFinite(now) || !Number.isInteger(seed)) throw new TypeError('Invalid session parameters.');
+  const session = {version:VERSION,config:c,status:'active',startedAt:now,
+    deadline:c.mode==='timed' && c.timeLimit>0 ? now+c.timeLimit*1000 : null,
+    endedAt:null,reason:'',rngState:seed>>>0,index:0,items:[]};
+  appendBatch(session);
+  return session;
+}
+function currentQuestion(session) {
+  const item=session.items[session.index];
+  return generateQuestion(item.type,item.seed);
+}
+function questionResult(item) {
+  const q=generateQuestion(item.type,item.seed);
+  const parts=q.parts.map((part,i) => ({...markValue(item.inputs[i],part.val),prompt:part.prompt,unit:part.unit}));
+  const checked=item.kind==='checked';
+  return {parts,checked,accepted:checked && parts.every(p=>p.accepted),
+    exact:checked && parts.every(p=>p.exact),acceptedParts:checked ? parts.filter(p=>p.accepted).length : 0,
+    exactParts:checked ? parts.filter(p=>p.exact).length : 0};
+}
+function stats(session) {
+  const done=session.items.filter(item=>item.kind!=='unanswered');
+  const results=done.map(questionResult);
+  return {completed:done.length,checked:done.filter(i=>i.kind==='checked').length,
+    revealed:done.filter(i=>i.kind==='revealed').length,
+    accepted:results.filter(r=>r.accepted).length,exactQuestions:results.filter(r=>r.exact).length,
+    parts:done.length*2,acceptedParts:results.reduce((s,r)=>s+r.acceptedParts,0),
+    exactParts:results.reduce((s,r)=>s+r.exactParts,0)};
+}
+function finish(session, reason='Session finished', now=Date.now()) {
+  if (session.status!=='active') return false;
+  session.status='finished'; session.reason=reason;
+  session.endedAt=session.deadline ? Math.min(now,session.deadline) : now;
+  return true;
+}
+function tick(session, now=Date.now()) {
+  if (session.status==='active' && session.deadline!==null && now>=session.deadline) {
+    finish(session,'Time’s up',session.deadline); return true;
   }
-
-  function finish(message='Well done!'){
-    clearInterval(timerId);
-    $qCard.style.display='none';
-    $endCard.style.display='block';
-    el('endMsg').textContent = message;
-    el('sumName').textContent = nameStr || 'Student';
-    el('sumMode').textContent = ($modeTxt.textContent);
-    el('sumScore').textContent = `${score} / ${idx}`;
-    const tlimitRaw = parseInt(document.querySelector('input[name="tlimit"]:checked')?.value||'0',10);
-    const setTime = (mode==='timed' && !unlimited) ? tlimitRaw : 0;
-    const usedSecs = (mode==='timed' && !unlimited) ? (setTime - timeLeft) : 0;
-    el('sumTime').textContent = (mode==='timed' && !unlimited) ? secsToMMSS(usedSecs) : '—';
+  return false;
+}
+function submit(session, inputs, now=Date.now()) {
+  if (session.status!=='active' || tick(session,now)) return {ok:false,reason:'finished'};
+  const item=session.items[session.index];
+  if (item.kind!=='unanswered') return {ok:false,reason:'already-marked'};
+  const q=currentQuestion(session);
+  const results=q.parts.map((p,i)=>markValue(inputs[i],p.val));
+  if (results.some(r=>!r.valid)) return {ok:false,reason:'invalid',parts:results};
+  item.inputs=results.map(r=>r.text); item.kind='checked';
+  const result=questionResult(item);
+  if (session.config.mode==='target' && stats(session).accepted>=session.config.target) {
+    finish(session,'Target achieved',now);
   }
-
-  function progressText(){
-    return (mode==='timed') ? `Question ${idx+1}` : `Question ${idx+1} · Target ${correctSoFar}/${target}`;
-  }
-  function renderQ(){
-    const local = idx % QUESTIONS.length;
-    currentQ = QUESTIONS[local];
-    el('progress').textContent = progressText();
-    $qTitle.textContent = currentQ.title;
-    $statement.innerHTML = currentQ.statementHTML;
-    $whyHtml.innerHTML = currentQ.whyHTML || '';
-    buildIORows(currentQ.parts);
-    el('nextBtn').disabled = true;
-    $scoreTopVal.textContent = `${score} / ${idx}`;
-    if(window.MathJax && window.MathJax.typeset){ MathJax.typeset(); }
-  }
-
-  function checkCurrent(){
-    const parts = (currentQ.check && currentQ.check().parts) || currentQ.parts;
-    let allOK=true;
-    parts.forEach((p,i)=>{
-      const inp = el('ans-'+i);
-      const mark = el('mark-'+i);
-      const fb = el('fb-'+i);
-      const stu = parseNum(inp && inp.value);
-      if(isFinite(stu)) inp.value = to2(stu);
-      if(isFinite(stu) && eq2dp(stu, p.val)){
-        mark.textContent='✓'; mark.className='marker ok'; fb.textContent='';
-      }else{
-        mark.textContent='✗'; mark.className='marker no';
-        fb.innerHTML = `Ans: <span class="ans">${to2(p.val)} ${unit(p.unit)}</span>`;
-        allOK=false;
-      }
-      inp.disabled=true;
-    });
-    if(allOK){ score++; correctSoFar++; }
-    $scoreTopVal.textContent = `${score} / ${idx+1}`;
-    el('nextBtn').disabled=false;
-    if(mode==='target' && correctSoFar>=target){ finish('Target achieved!'); }
-  }
-
-  function nextQ(){
-    idx++;
-    if(idx % QUESTIONS.length === 0){
-      QUESTIONS = buildSet(BATCH);
-    }
-    renderQ();
-    updateTop();
-  }
-
-  // Events
-  document.getElementById('checkBtn').addEventListener('click', checkCurrent);
-  document.getElementById('nextBtn').addEventListener('click', nextQ);
-  document.getElementById('newBtn').addEventListener('click', ()=>{ document.getElementById('startModal').style.display='flex'; });
-
-  document.addEventListener('keydown', (e)=>{
-    if(e.key==='Enter' && !document.getElementById('nextBtn').disabled){ nextQ(); }
-    else if(e.key==='Enter' && document.getElementById('nextBtn').disabled){ checkCurrent(); }
+  return {ok:true,...result};
+}
+function reveal(session, now=Date.now()) {
+  if (session.status!=='active' || tick(session,now)) return false;
+  const item=session.items[session.index];
+  if (item.kind!=='unanswered') return false;
+  item.kind='revealed'; return true;
+}
+function advance(session, now=Date.now()) {
+  if (session.status!=='active' || tick(session,now)) return false;
+  if (session.items[session.index].kind==='unanswered') return false;
+  if (session.index===session.items.length-1) appendBatch(session);
+  session.index++; return true;
+}
+function cleanStrokes(strokes) {
+  if (!Array.isArray(strokes)) return [];
+  return strokes.slice(-150).filter(s=>s && ['pen','eraser'].includes(s.tool) && Array.isArray(s.points)).map(s=>({
+    tool:s.tool,colour:['#172c37','#1d63a5','#a83232'].includes(s.colour)?s.colour:'#172c37',
+    width:[2,4,7,22].includes(s.width)?s.width:4,
+    points:s.points.slice(0,1500).filter(p=>Array.isArray(p)&&p.length===2&&p.every(n=>Number.isFinite(n)&&n>=0&&n<=1))
+  })).filter(s=>s.points.length);
+}
+function serialize(session) {
+  const clean=JSON.parse(JSON.stringify(session));
+  for (const item of clean.items) {item.note=String(item.note||'').slice(0,8000);item.strokes=cleanStrokes(item.strokes);}
+  return JSON.stringify(clean);
+}
+function restore(serialized, now=Date.now()) {
+  // Never inject saved HTML: regenerate every question from its validated type and seed.
+  if (typeof serialized!=='string' || serialized.length>12000000) throw new Error('Saved session is too large.');
+  const x=JSON.parse(serialized);
+  if (!x || x.version!==VERSION || !['active','finished'].includes(x.status)) throw new Error('Unsupported saved session.');
+  const config=validateConfig(x.config || {});
+  if (!Number.isFinite(x.startedAt) || x.startedAt<=0 || x.startedAt>now+60000) throw new Error('Invalid saved start time.');
+  if (!Array.isArray(x.items) || x.items.length<1 || x.items.length>20000) throw new Error('Invalid saved question list.');
+  if (!Number.isInteger(x.index)||x.index<0||x.index>=x.items.length) throw new Error('Invalid saved position.');
+  if (!Number.isInteger(x.rngState)||x.rngState<0||x.rngState>4294967295) throw new Error('Invalid random state.');
+  const items=x.items.map((i,j)=>{
+    if (!i || !['unanswered','checked','revealed'].includes(i.kind)) throw new Error('Invalid saved answer status.');
+    generateQuestion(i.type,i.seed);
+    if ((j<x.index && i.kind==='unanswered')||(j>x.index && i.kind!=='unanswered')) throw new Error('Invalid saved question order.');
+    const inputs=[0,1].map(n=>String(i.inputs?.[n]??'').slice(0,32));
+    if (i.kind==='checked' && inputs.some(n=>!parseHundredths(n).valid)) throw new Error('Invalid saved answer.');
+    return {type:i.type,seed:i.seed,kind:i.kind,inputs,note:String(i.note||'').slice(0,8000),strokes:cleanStrokes(i.strokes)};
   });
-
-  function updateModeFields(){
-    const modeEl = document.querySelector('input[name="mode"]:checked');
-    const modeVal = modeEl ? modeEl.value : 'timed';
-    document.getElementById('timedField').style.display = (modeVal==='timed') ? '' : 'none';
-    document.getElementById('targetField').style.display = (modeVal==='target') ? '' : 'none';
-  }
-  document.querySelectorAll('input[name="mode"]').forEach(r=>r.addEventListener('change', updateModeFields));
-
-  // Start button -> build set & render
-  document.getElementById('startBtn').addEventListener('click', ()=>{
-    const nameVal = document.getElementById('nameInput').value.trim();
-    nameStr = nameVal || 'Student';
-    const picked = document.querySelector('input[name="mode"]:checked');
-    mode = picked ? picked.value : 'timed';
-    let timeSel = 1200;
-    if(mode==='timed'){
-      timeSel = parseInt(document.querySelector('input[name="tlimit"]:checked')?.value||'1200',10);
-      unlimited = (timeSel===0);
-      timeLeft = unlimited ? 0 : timeSel;
-    } else { timeLeft = 0; unlimited=false; }
-    if(mode==='target'){
-      target = clamp(parseInt(document.getElementById('targetInput').value,10)||10,1,1000000);
-    } else { target = 0; }
-    document.getElementById('startModal').style.display='none';
-    document.getElementById('modeTxt').textContent = mode==='timed' ? 'Timed' : 'Target';
-    if(mode==='timed' && unlimited){ document.getElementById('timeTxt').textContent='—'; }
-    startWorksheet();
-  });
-
-  document.getElementById('restartBtn').addEventListener('click', ()=>{ document.getElementById('startModal').style.display='flex'; });
-  updateModeFields();
-
-  // Fullscreen
-  document.getElementById('fsBtn').addEventListener('click', ()=>{
-    if(!document.fullscreenElement){ document.documentElement.requestFullscreen?.(); }
-    else{ document.exitFullscreen?.(); }
-  });
-  document.addEventListener('fullscreenchange', ()=>{
-    document.getElementById('fsBtn').textContent = document.fullscreenElement ? '✕ Exit full screen' : '⛶ Full screen';
-  });
-
-  // Show modal on load
-  document.getElementById('startModal').style.display='flex';
-});
+  const deadline=config.mode==='timed'&&config.timeLimit>0 ? x.startedAt+config.timeLimit*1000 : null;
+  const endedAt=x.status==='finished'?Number(x.endedAt):null;
+  if (x.status==='finished' && (!Number.isFinite(endedAt)||endedAt<x.startedAt||endedAt>now+60000)) throw new Error('Invalid saved end time.');
+  const result={version:VERSION,config,status:x.status,startedAt:x.startedAt,deadline,endedAt,
+    reason:String(x.reason||'Session finished').slice(0,100),rngState:x.rngState,index:x.index,items};
+  tick(result,now);
+  if(result.status==='active'&&config.mode==='target'&&stats(result).accepted>=config.target) finish(result,'Target achieved',now);
+  return result;
+}
+const api={VERSION,TOLERANCE,BATCHES,TIMES,FAMILIES,round2,expectedHundredths,formatHundredths,inputHundredths,
+  parseHundredths,markValue,seeded,generateQuestion,createSession,currentQuestion,questionResult,stats,finish,tick,
+  submit,reveal,advance,serialize,restore,cleanStrokes,validateConfig};
+if(typeof module==='object' && module.exports) module.exports=api;
+else root.CivilTrig=Object.freeze(api);
+})(typeof globalThis!=='undefined'?globalThis:this);
 </script>
-</body>
-</html>
+<script id="civil-trig-ui">(function () {
+'use strict';
+const E=window.CivilTrig;
+const $=id=>document.getElementById(id);
+const esc=text=>String(text??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const unit=u=>u==='deg'?'°':'m';
+const KEY='civil-trig-workshop-v2-session';
+const PREFKEY='civil-trig-workshop-v2-display';
+let session=null, saved=null, timer=null, saveTimer=null, toastTimer=null, storageOK=true;
+let currentStroke=null, redoStack=[], penTool='pen', penColour=0, penSize=1;
+const colours=['#172c37','#1d63a5','#a83232'];
+const colourNames=['dark','blue','red'];
+const widths=[2,4,7];
+const widthNames=['fine','medium','broad'];
+let canvasWidth=1,canvasHeight=1;
+const ctx=$('workCanvas').getContext('2d');
+function toast(message) { clearTimeout(toastTimer); $('toast').textContent=message; toastTimer=setTimeout(()=>$('toast').textContent='',4500); }
+function storageNotice(message) { $('storageNotice').hidden=false; $('storageNotice').textContent=message; }
+function saveNow() {
+  clearTimeout(saveTimer);
+  if(!session || !storageOK) return;
+  try { localStorage.setItem(KEY,E.serialize(session)); $('saveStatus').textContent='Saved in this browser. No data is sent anywhere.'; }
+  catch { storageOK=false; storageNotice('Browser saving is unavailable or full. You can still complete this session, but keep this tab open and export your results before leaving.'); $('saveStatus').textContent='Not saved: keep this tab open.'; }
+}
+function saveSoon() {clearTimeout(saveTimer);saveTimer=setTimeout(saveNow,300);}
+function dropSaved() {try{localStorage.removeItem(KEY);}catch{} saved=null;$('resumeCard').hidden=true;}
+function freshSeed() {try{return crypto.getRandomValues(new Uint32Array(1))[0];}catch{return (Date.now() ^ Math.floor(Math.random()*4294967296))>>>0;}}
+function showView(view) {for(const v of ['setupView','sessionView','resultsView'])$(v).hidden=v!==view;}
+function scrollTop() {window.scrollTo({top:0,behavior:'instant'});}
+function formatTime(seconds) {const sec=Math.max(0,Math.floor(seconds));const m=Math.floor(sec/60),s=String(sec%60).padStart(2,'0');return m>=60?`${Math.floor(m/60)}:${String(m%60).padStart(2,'0')}:${s}`:`${m}:${s}`;}
+function elapsed(s,now=Date.now()) {return Math.max(0,Math.floor(((s.endedAt??now)-s.startedAt)/1000));}
+function sourceStatement(q) {return q.statementHTML.split('<br>').map(line=>`<span class="statement-line${line.startsWith('Angle symbols:')?' angle-line':''}">${line}</span>`).join('');}
+function model(p) {return E.formatHundredths(E.expectedHundredths(p.val))+' '+unit(p.unit);}
+function line(x1,y1,x2,y2,cl='dim-line') {return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" class="${cl}"/>`;}
+function label(x,y,text,cl='dim-label',extra='') {return `<text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="middle" class="${cl}" ${extra}>${esc(text)}</text>`;}
+function diagramSVG(q,suffix='main') {
+ const d=q.diagram, w=740,h=425;
+ // Uniform scaling preserves the actual run/rise ratio; shallow/steep triangles are not distorted.
+ const scale=Math.min(440/d.run,265/d.rise),base=d.run*scale,rise=d.rise*scale;
+ const ax=108+(440-base)/2, ay=72+(265-rise)/2+rise,bx=ax+base,cy=ay-rise;
+ const hyp=Math.hypot(base,rise),theta=Math.atan2(rise,base),phi=Math.PI/2-theta;
+ const titleID=`tri-title-${suffix}-${q.seed}`,descID=`tri-desc-${suffix}-${q.seed}`;
+ let shapes='';
+ for(let x=20;x<w;x+=28) shapes+=line(x,12,x,h-12,'grid-line');
+ for(let y=12;y<h;y+=28) shapes+=line(20,y,w-20,y,'grid-line');
+ shapes+=`<polygon class="tri-shape" points="${ax},${ay} ${bx},${ay} ${bx},${cy}"/>`;
+ const ra=Math.min(15,base*.23,rise*.23);
+ shapes+=`<path class="right-angle" d="M ${bx-ra} ${ay} V ${ay-ra} H ${bx}"/>`;
+ // Dimensions use full extension lines. Labels are offset beyond, not on, the dimension line.
+ if(d.showRunTxt) {
+  const yy=ay+36; shapes+=line(ax,ay+6,ax,yy+6,'ext-line')+line(bx,ay+6,bx,yy+6,'ext-line')+line(ax,yy,bx,yy);
+  shapes+=line(ax-4,yy+5,ax+4,yy-5,'dim-tick')+line(bx-4,yy+5,bx+4,yy-5,'dim-tick')+label((ax+bx)/2,yy+25,d.showRunTxt);
+ }
+ if(d.showRiseTxt) {
+  const xx=bx+40; shapes+=line(bx+6,ay,xx+7,ay,'ext-line')+line(bx+6,cy,xx+7,cy,'ext-line')+line(xx,cy,xx,ay);
+  shapes+=line(xx-5,cy+4,xx+5,cy-4,'dim-tick')+line(xx-5,ay+4,xx+5,ay-4,'dim-tick');
+  shapes+=label(xx+16,(cy+ay)/2,d.showRiseTxt,'dim-label','style="text-anchor:start"');
+ }
+ if(d.showHypTxt) {
+  const nx=-rise/hyp,ny=-base/hyp,off=29;
+  const p1=[ax+nx*off,ay+ny*off],p2=[bx+nx*off,cy+ny*off];
+  shapes+=line(ax+nx*5,ay+ny*5,ax+nx*(off+8),ay+ny*(off+8),'ext-line')+line(bx+nx*5,cy+ny*5,bx+nx*(off+8),cy+ny*(off+8),'ext-line')+line(...p1,...p2);
+  shapes+=line(p1[0]-nx*5,p1[1]-ny*5,p1[0]+nx*5,p1[1]+ny*5,'dim-tick')+line(p2[0]-nx*5,p2[1]-ny*5,p2[0]+nx*5,p2[1]+ny*5,'dim-tick');
+  const lx=(ax+bx)/2+nx*(off+23),ly=(ay+cy)/2+ny*(off+23);
+  shapes+=label(lx,ly,d.showHypTxt,'dim-label',`transform="rotate(${-theta*180/Math.PI} ${lx} ${ly})"`);
+ }
+ function angleAtA() {
+  if(!d.angleASym)return '';
+  const radius=Math.min(28,base*.2,rise*.65);
+  let inner=`<path class="angle-arc" d="M ${ax+radius} ${ay} A ${radius} ${radius} 0 0 0 ${ax+radius*Math.cos(theta)} ${ay-radius*Math.sin(theta)}"/>`;
+  const minD=18/Math.sin(theta/2),maxD=(base-20)/Math.cos(theta/2);
+  if(minD<=maxD && minD<=72) {const dist=Math.max(46,minD);inner+=label(ax+Math.cos(theta/2)*Math.min(dist,maxD),ay-Math.sin(theta/2)*Math.min(dist,maxD),d.angleASym,'angle-symbol');}
+  else {inner+=line(ax+radius*.6,ay-radius*.3,ax-23,ay+5,'ext-line')+label(ax-41,ay+7,d.angleASym,'angle-symbol');}
+  return inner;
+ }
+ function angleAtC() {
+  if(!d.angleCSym)return '';
+  const radius=Math.min(28,rise*.2,base*.65);
+  let inner=`<path class="angle-arc" d="M ${bx} ${cy+radius} A ${radius} ${radius} 0 0 1 ${bx-radius*Math.sin(phi)} ${cy+radius*Math.cos(phi)}"/>`;
+  const minD=18/Math.sin(phi/2),maxD=(rise-20)/Math.cos(phi/2);
+  if(minD<=maxD && minD<=72){const dist=Math.min(Math.max(46,minD),maxD);inner+=label(bx-Math.sin(phi/2)*dist,cy+Math.cos(phi/2)*dist,d.angleCSym,'angle-symbol');}
+  else{inner+=line(bx-radius*.35,cy+radius*.6,bx+32,cy-21,'ext-line')+label(bx+49,cy-31,d.angleCSym,'angle-symbol');}
+  return inner;
+ }
+ shapes+=angleAtA()+angleAtC();
+ const description=`Right-angled triangle drawn to scale. Right angle at the base-right. ${d.angleASym} is the base-left angle. ${d.angleCSym} is the top-right angle. Horizontal dimension: ${d.showRunTxt||'not labelled'}. Vertical dimension: ${d.showRiseTxt||'not labelled'}. Hypotenuse: ${d.showHypTxt||'unknown'}. Numeric angle values, when given, are in the question text.`;
+ return `<svg class="diagram" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="${titleID} ${descID}"><title id="${titleID}">${esc(d.caption)}</title><desc id="${descID}">${esc(description)}</desc>${shapes}</svg>`;
+}
+function updateModeFields() {
+ const mode=document.querySelector('input[name="mode"]:checked').value;
+ $('timedField').hidden=mode!=='timed';$('targetField').hidden=mode!=='target';
+ $('modeDescription').textContent=mode==='target'?'Fresh sets continue until the target is reached. A question counts only when both parts are accepted.':'Fresh sets continue until the timer finishes. Unlimited sessions end when you choose Finish session.';
+}
+function setupValues() {return {name:$('nameInput').value,mode:document.querySelector('input[name="mode"]:checked').value,timeLimit:Number($('timeSelect').value),target:Number($('targetInput').value),batch:Number($('qtyInput').value)};}
+function fillSetup(config) {if(!config)return;$('nameInput').value=config.name==='Student'?'':config.name;document.querySelector(`input[name="mode"][value="${config.mode}"]`).checked=true;$('timeSelect').value=config.timeLimit;$('targetInput').value=config.target||10;$('qtyInput').value=config.batch;updateModeFields();}
+function ask(title,text,ok='Continue') {
+ return new Promise(resolve=>{
+  const d=$('confirmDialog'); if(d.open){resolve(false);return;}
+  $('confirmTitle').textContent=title;$('confirmText').textContent=text;$('confirmOK').textContent=ok;d.returnValue='cancel';
+  d.addEventListener('close',()=>resolve(d.returnValue==='ok'),{once:true});d.showModal();$('confirmCancel').focus();
+ });
+}
+function closeAuxiliary() {for(const id of ['confirmDialog','workDialog','diagramDialog','displayDialog'])if($(id).open)$(id).close('cancel');}
+function updateTime() {
+ if(!session)return;
+ const left=session.deadline===null?null:Math.max(0,Math.ceil((session.deadline-Date.now())/1000));
+ $('timerLabel').textContent=left===null?'Time used':'Time remaining';$('timeText').textContent=formatTime(left===null?elapsed(session):left);
+ $('timerStat').classList.toggle('warn',left!==null&&left<=60&&session.status==='active');
+}
+function updateTop() {
+ const st=E.stats(session);$('whoName').textContent=session.config.name;$('whoName').title=session.config.name;
+ $('modeLabel').textContent=session.config.mode==='target'?'Target progress':'Mode';
+ $('modeText').textContent=session.config.mode==='target'?`${st.accepted} / ${session.config.target}`:session.deadline===null?'Unlimited':'Timed';
+ $('scoreText').textContent=`${st.accepted} / ${st.completed}`;updateTime();
+ const local=session.index%session.config.batch,marked=session.items[session.index].kind!=='unanswered';
+ $('progressText').textContent=`Question ${session.index+1} · Set ${Math.floor(session.index/session.config.batch)+1} · ${local+1} of ${session.config.batch}`;
+ $('setProgress').setAttribute('aria-valuemax',session.config.batch);$('setProgress').setAttribute('aria-valuenow',local+(marked?1:0));$('progressFill').style.width=`${100*(local+(marked?1:0))/session.config.batch}%`;
+}
+function startTimer() {clearInterval(timer);timer=setInterval(()=>{if(!session||session.status!=='active')return;if(E.tick(session)){renderResults();saveNow();}else updateTime();},250);}
+function showCheckMessage(text,success=false) {$('checkMessage').hidden=false;$('checkMessage').textContent=text;$('checkMessage').classList.toggle('success',success);}
+function renderAnswerFeedback() {
+ const item=session.items[session.index],q=E.currentQuestion(session),marked=item.kind!=='unanswered';
+ $('checkBtn').hidden=marked;$('checkBtn').disabled=marked;$('nextBtn').hidden=!marked;$('nextBtn').disabled=!marked;$('revealBtn').hidden=marked;
+ q.parts.forEach((p,i)=>{
+  const field=$('part-'+i),input=$('ans-'+i),fb=$('fb-'+i);input.disabled=marked;field.className='answer-field';
+  field.querySelectorAll('button').forEach(b=>b.disabled=marked);
+  if(!marked)return;
+  if(item.kind==='revealed'){field.classList.add('revealed');fb.innerHTML=`<strong>Revealed · no credit</strong><span class="model">Answer: ${esc(model(p))}</span>`;}
+  else{const result=E.markValue(item.inputs[i],p.val);field.classList.add(result.accepted?'accepted':'incorrect');
+   const description=result.exact?'✓ Exact answer':result.accepted?'✓ Accepted within tolerance':'✕ Outside the tolerance';
+   fb.innerHTML=`<strong>${description}</strong><span class="model">Model answer: ${esc(model(p))}</span>${!result.exact?`<span>Difference: ${esc(E.formatHundredths(Math.abs(result.difference)))} ${unit(p.unit)}</span>`:''}`;
+  }
+ });
+ if(marked){const result=E.questionResult(item);showCheckMessage(item.kind==='revealed'?'Answers revealed. This question earns no credit.':result.accepted?'Both parts accepted. One question added to your score.':`${result.acceptedParts} of 2 parts accepted. Both parts are needed for a fully accepted question.`,result.accepted);}
+}
+function renderQuestion(focus=true) {
+ if(!session)return;if(session.status==='finished'){renderResults();return;}
+ showView('sessionView');$('resumeCard').hidden=true;
+ const q=E.currentQuestion(session),item=session.items[session.index];
+ $('qTitle').textContent=q.title;$('statement').innerHTML=sourceStatement(q);$('diagramFrame').innerHTML=diagramSVG(q);
+ $('diagramCaption').textContent=q.diagram.caption;$('whyContent').innerHTML=q.whyHTML;$('whyBox').open=false;
+ $('io').innerHTML=q.parts.map((p,i)=>`<div class="answer-field" id="part-${i}"><label for="ans-${i}" class="answer-label"><span class="part-tag">${i+1}</span>${esc(p.prompt)}</label><div class="answer-input-wrap"><input id="ans-${i}" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" maxlength="32" placeholder="0.00" aria-describedby="fb-${i}" value="${esc(item.inputs[i])}"><span class="unit" aria-label="${p.unit==='deg'?'degrees':'metres'}">${unit(p.unit)}</span></div><div class="stepper-row"><button type="button" data-part="${i}" data-step="-1" aria-label="Decrease ${esc(p.prompt)} by 0.01">−0.01</button><button type="button" data-part="${i}" data-step="1" aria-label="Increase ${esc(p.prompt)} by 0.01">+0.01</button><small>2 dp</small></div><div id="fb-${i}" class="answer-feedback"></div></div>`).join('');
+ $('typedNote').value=item.note;$('checkMessage').hidden=true;$('checkMessage').textContent='';
+ if(!storageOK)$('saveStatus').textContent='Not saved: keep this tab open.';
+ updateTop();renderAnswerFeedback();redoStack=[];
+ if(focus){$('qTitle').focus({preventScroll:true});scrollTop();}
+}
+function pullInputs() {if(!session||session.status!=='active')return;const item=session.items[session.index];if(item.kind==='unanswered')item.inputs=[0,1].map(i=>$('ans-'+i)?.value??item.inputs[i]);}
+function submitAnswers(event) {
+ event.preventDefault();if(!session||session.status!=='active')return;
+ const result=E.submit(session,[0,1].map(i=>$('ans-'+i).value));
+ if(!result.ok){
+  if(result.reason==='finished'){renderResults();return;}
+  if(result.reason==='invalid'){
+   result.parts.forEach((p,i)=>{if(!p.valid){$('fb-'+i).textContent=p.error;$('ans-'+i).setAttribute('aria-invalid','true');}else{$('fb-'+i).textContent='';$('ans-'+i).removeAttribute('aria-invalid');}});
+   showCheckMessage('Please enter a valid number in both answer boxes. Nothing has been marked.');
+   $('ans-'+result.parts.findIndex(r=>!r.valid)).focus();
+  }return;
+ }
+ if(session.status==='finished'){renderResults();saveNow();return;}
+ for(let i=0;i<2;i++){$('ans-'+i).value=session.items[session.index].inputs[i];$('ans-'+i).removeAttribute('aria-invalid');}
+ updateTop();renderAnswerFeedback();saveNow();$('nextBtn').focus({preventScroll:true});
+}
+function nextQuestion(){if(!session)return; if(E.advance(session)){renderQuestion();saveNow();}else if(session.status==='finished')renderResults();}
+async function newSessionFromActive() {
+ if(!session)return;
+ if(await ask('Start a new session?','Your current session will be replaced. Choose Cancel to finish it and export the results first.','Replace session')){
+  const config=session.config;clearInterval(timer);clearTimeout(saveTimer);closeAuxiliary();session=null;dropSaved();fillSetup(config);showView('setupView');scrollTop();$('setupHeading').focus?.();
+ }
+}
+function reviewHTML(item,index,isPending=false) {
+ const q=E.generateQuestion(item.type,item.seed),r=E.questionResult(item);
+ const status=isPending?'Not submitted':item.kind==='revealed'?'Revealed':r.accepted?'2 / 2 accepted':`${r.acceptedParts} / 2 accepted`;
+ return `<details class="review-item"><summary><span>${index+1}. ${esc(q.title)}</span><span class="review-status">${status}</span></summary><div class="review-content"><div class="review-question">${sourceStatement(q)}</div><div class="review-answers">${q.parts.map((p,i)=>`<div class="review-part ${isPending?'':item.kind==='revealed'?'revealed':r.parts[i].accepted?'accepted':'incorrect'}"><strong>${esc(p.prompt)}</strong><span class="tiny">Your entry: ${esc(item.inputs[i]||'—')} ${item.inputs[i]?unit(p.unit):''}</span><span class="model">Model: ${esc(model(p))}</span><span class="tiny">${isPending?'Not marked':item.kind==='revealed'?'No credit: answer revealed':r.parts[i].exact?'Exact answer':r.parts[i].accepted?'Accepted within ±1.00':'Not accepted'}</span></div>`).join('')}</div>${item.note?`<div class="note" style="margin-top:13px"><strong>Your typed working</strong><p style="white-space:pre-wrap">${esc(item.note)}</p></div>`:''}${item.strokes?.length?`<p class="tiny muted" style="margin-top:12px">Handwritten working recorded for this question.</p><button type="button" class="small review-work" data-index="${index}" style="margin-top:8px">View handwritten working</button>`:''}</div></details>`;
+}
+function renderResults() {
+ if(!session)return;clearInterval(timer);finishStroke();closeAuxiliary();showView('resultsView');$('resumeCard').hidden=true;
+ const st=E.stats(session);$('resultsTitle').textContent=session.reason||'Session complete';
+ const mode=session.config.mode==='target'?`Target ${session.config.target}`:session.deadline===null?'Unlimited':`${session.config.timeLimit/60}-minute session`;
+ $('resultsMeta').textContent=`${session.config.name} · ${mode} · ±1.00 marking tolerance`;
+ $('resultsScore').textContent=`${st.accepted} / ${st.completed}`;$('resultsParts').textContent=`${st.acceptedParts} / ${st.parts}`;
+ $('resultsExact').textContent=st.exactParts;$('resultsTolerance').textContent=st.acceptedParts-st.exactParts;$('resultsTime').textContent=formatTime(elapsed(session));
+ const pending=session.items[session.index].kind==='unanswered';
+ $('resultsNotice').textContent=`${st.checked} question${st.checked===1?'':'s'} checked; ${st.revealed} revealed without credit.${pending?' The last displayed question was not submitted and is excluded from the score.':''} A fully accepted question needs both parts within tolerance. ±1.00 is a classroom marking allowance, not an engineering construction tolerance.`;
+ const grouped=new Map();
+ session.items.filter(i=>i.kind!=='unanswered').forEach(i=>{const q=E.generateQuestion(i.type,i.seed),r=E.questionResult(i);if(!grouped.has(q.family))grouped.set(q.family,{n:0,q:0,p:0});const g=grouped.get(q.family);g.n++;g.q+=r.accepted?1:0;g.p+=r.acceptedParts;});
+ $('topicRows').innerHTML=grouped.size?[...grouped].map(([name,v])=>`<tr><th scope="row" style="background:transparent;text-transform:none;letter-spacing:0;font-size:inherit">${esc(name)}</th><td class="num">${v.n}</td><td class="num">${v.q} / ${v.n}</td><td class="num">${v.p} / ${v.n*2}</td></tr>`).join(''):'<tr><td colspan="4">No questions were submitted in this session.</td></tr>';
+ $('reviewList').innerHTML=session.items.slice(0,session.index+1).map((item,index)=>reviewHTML(item,index,item.kind==='unanswered')).join('');
+ $('expandReviewBtn').textContent='Expand all';saveNow();$('resultsTitle').focus({preventScroll:true});scrollTop();
+}
+function csvCell(value) {let s=String(value??'');if(/^[\s]*[=+\-@\t\r]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"';}
+function resultsCSV() {
+ const rows=[['Participant','Mode','Question','Context','Part','Prompt','Entry','Model answer (2 dp)','Unit','Status','Within tolerance','Exact','Tolerance','Typed working']];
+ session.items.slice(0,session.index+1).forEach((item,index)=>{const q=E.generateQuestion(item.type,item.seed),result=E.questionResult(item);q.parts.forEach((p,i)=>{const r=result.parts[i];rows.push([session.config.name,session.config.mode==='target'?'Target':session.deadline===null?'Unlimited':'Timed',index+1,q.family,i+1,p.prompt,item.inputs[i],E.inputHundredths(E.expectedHundredths(p.val)),unit(p.unit),item.kind,item.kind==='checked'?(r.accepted?'Yes':'No'):'Not marked',item.kind==='checked'?(r.exact?'Yes':'No'):'Not marked','±1.00',item.note]);});});
+ return '\uFEFF'+rows.map(row=>row.map(csvCell).join(',')).join('\r\n');
+}
+function download(name,text,type) {const blob=new Blob([text],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);}
+function summaryText() {const st=E.stats(session);return `Civil Engineering — Pythagoras & Basic Trigonometry\nParticipant: ${session.config.name}\nOutcome: ${session.reason}\nQuestions accepted: ${st.accepted} / ${st.completed}\nParts accepted: ${st.acceptedParts} / ${st.parts}\nExact parts: ${st.exactParts}\nTolerance-only parts: ${st.acceptedParts-st.exactParts}\nRevealed without credit: ${st.revealed}\nTime used: ${formatTime(elapsed(session))}\nTolerance: ±1.00 inclusive (metres or degrees); checked to 2 dp.\n`;}
+function openDiagram() {const q=E.currentQuestion(session);$('largeDiagramTitle').textContent=q.diagram.caption;$('largeDiagram').innerHTML=diagramSVG(q,'large');$('diagramDialog').showModal();}
+let drawingItem=null,drawingReadOnly=false;
+function openWork(item=session.items[session.index],readOnly=false) {
+ if(!item)return;drawingItem=item;drawingReadOnly=readOnly;redoStack=[];currentStroke=null;
+ const q=E.generateQuestion(item.type,item.seed);$('workTitle').textContent=readOnly?'Recorded handwritten working':'Working space';
+ $('workStatement').innerHTML=sourceStatement(q);$('workMini').innerHTML=diagramSVG(q,'work');
+ $('workDialog').querySelector('[data-close]').textContent=readOnly?'Back to results':'Back to answers';
+ for(const id of ['penBtn','eraserBtn','penColourBtn','penWidthBtn','clearCanvasBtn'])$(id).disabled=readOnly;
+ $('workDialog').showModal();requestAnimationFrame(resizeCanvas);
+}
+function refreshCanvas() {
+ ctx.clearRect(0,0,canvasWidth,canvasHeight);
+ const strokes=drawingItem?.strokes||[];
+ for(const stroke of [...strokes,...(currentStroke?[currentStroke]:[])]) {
+  if(!stroke.points.length)continue;
+  ctx.save();ctx.globalCompositeOperation=stroke.tool==='eraser'?'destination-out':'source-over';ctx.strokeStyle=stroke.colour;ctx.fillStyle=stroke.colour;ctx.lineWidth=stroke.width;ctx.lineCap='round';ctx.lineJoin='round';
+  const points=stroke.points.map(p=>[p[0]*canvasWidth,p[1]*canvasHeight]);
+  if(points.length===1){ctx.beginPath();ctx.arc(points[0][0],points[0][1],stroke.width/2,0,2*Math.PI);ctx.fill();}
+  else{ctx.beginPath();ctx.moveTo(...points[0]);for(let i=1;i<points.length;i++)ctx.lineTo(...points[i]);ctx.stroke();}
+  ctx.restore();
+ }
+ $('canvasPlaceholder').hidden=strokes.length>0||!!currentStroke;$('undoBtn').disabled=drawingReadOnly||!strokes.length;$('redoBtn').disabled=drawingReadOnly||!redoStack.length;
+}
+function resizeCanvas() {if(!$('workDialog').open)return;const rect=$('canvasShell').getBoundingClientRect(),ratio=Math.min(window.devicePixelRatio||1,3);canvasWidth=rect.width;canvasHeight=rect.height;$('workCanvas').width=Math.round(canvasWidth*ratio);$('workCanvas').height=Math.round(canvasHeight*ratio);ctx.setTransform(ratio,0,0,ratio,0,0);refreshCanvas();}
+function pointerPoint(event) {const r=$('workCanvas').getBoundingClientRect();return [Math.max(0,Math.min(1,(event.clientX-r.left)/r.width)),Math.max(0,Math.min(1,(event.clientY-r.top)/r.height))];}
+function finishStroke() {if(!currentStroke)return;drawingItem.strokes.push(currentStroke);currentStroke=null;redoStack=[];refreshCanvas();saveSoon();}
+function undo() {if(drawingReadOnly||!drawingItem?.strokes.length)return;redoStack.push(drawingItem.strokes.pop());refreshCanvas();saveSoon();}
+function redo() {if(drawingReadOnly||!redoStack.length)return;drawingItem.strokes.push(redoStack.pop());refreshCanvas();saveSoon();}
+function applyPreferences() {document.documentElement.style.fontSize=$('sizeSelect').value==='large'?'18px':'16px';document.body.dataset.theme=$('themeSelect').value;document.body.dataset.size=$('sizeSelect').value;document.body.dataset.overlay=$('overlaySelect').value;try{localStorage.setItem(PREFKEY,JSON.stringify({theme:$('themeSelect').value,size:$('sizeSelect').value,overlay:$('overlaySelect').value}));}catch{}if($('workDialog').open)requestAnimationFrame(resizeCanvas);}
+function initialSavedSession() {
+ try{
+  const raw=localStorage.getItem(KEY);if(!raw)return;
+  try{saved=E.restore(raw);fillSetup(saved.config);const st=E.stats(saved);$('resumeCard').hidden=false;$('resumeTitle').textContent=saved.status==='finished'?'Your previous results are saved':'Your previous session is saved';$('resumeBtn').textContent=saved.status==='finished'?'View results':'Resume session';$('resumeText').textContent=`${saved.config.name} · ${st.completed} submitted · ${st.accepted} accepted.${saved.status==='active'&&saved.deadline?' The timer continues while the page is closed.':''}`;}
+  catch{storageNotice('The previous save could not be restored. It has not been used. Starting a new session will replace it.');}
+ }catch{storageOK=false;storageNotice('This browser is blocking local saving. The worksheet still works, but keep the tab open and export your results before leaving.');}
+}
+// Bind events only to relevant controls. Enter in notes, dialogs or setup never checks a question.
+$('setupForm').addEventListener('submit',async event=>{
+ event.preventDefault();let config;
+ try{config=E.validateConfig(setupValues());$('setupError').hidden=true;}catch(error){$('setupError').hidden=false;$('setupError').textContent=error.message;return;}
+ if(saved&&!(await ask('Replace the saved session?','Start a new session instead of resuming your saved work?','Start new session')))return;
+ $('startBtn').disabled=true;
+ try{clearInterval(timer);session=E.createSession(config,freshSeed());saved=null;renderQuestion();startTimer();saveNow();}catch(error){$('setupError').textContent=error.message;$('setupError').hidden=false;showView('setupView');}
+ finally{$('startBtn').disabled=false;}
+});
+document.querySelectorAll('input[name=mode]').forEach(el=>el.addEventListener('change',updateModeFields));
+$('answerForm').addEventListener('submit',submitAnswers);$('nextBtn').addEventListener('click',nextQuestion);
+$('io').addEventListener('click',event=>{
+ const b=event.target.closest('button[data-step]');if(!b||!session||session.items[session.index].kind!=='unanswered')return;
+ const index=Number(b.dataset.part),input=$('ans-'+index),parsed=E.parseHundredths(input.value);
+ if(input.value.trim()&&!parsed.valid){$('fb-'+index).textContent=parsed.error;input.focus();return;}
+ input.value=E.inputHundredths((parsed.valid?parsed.cents:0)+Number(b.dataset.step));input.removeAttribute('aria-invalid');$('fb-'+index).textContent='';pullInputs();saveSoon();input.focus({preventScroll:true});
+});
+$('io').addEventListener('input',event=>{if(event.target.matches('input')){event.target.removeAttribute('aria-invalid');const index=event.target.id.slice(4);$('fb-'+index).textContent='';pullInputs();saveSoon();}});
+$('io').addEventListener('focusout',event=>{if(!event.target.matches('input')||event.target.disabled)return;const parsed=E.parseHundredths(event.target.value);if(parsed.valid)event.target.value=parsed.text;pullInputs();saveSoon();});
+$('revealBtn').addEventListener('click',async()=>{if(!session||session.status!=='active')return;if(await ask('Reveal both answers?','This will show the model answers. The question will be recorded as revealed and will earn no credit.','Reveal answers')){pullInputs();if(E.reveal(session)){updateTop();renderAnswerFeedback();saveNow();$('nextBtn').focus({preventScroll:true});}else if(session.status==='finished')renderResults();}});
+$('finishBtn').addEventListener('click',async()=>{if(await ask('Finish this session?','You will see your results and can export them. An unsubmitted question will not count towards your score.','Finish session')){pullInputs();E.finish(session);renderResults();}});
+$('newBtn').addEventListener('click',newSessionFromActive);
+$('restartBtn').addEventListener('click',()=>{fillSetup(session.config);saved=session;session=null;showView('setupView');initialSavedSession();scrollTop();});
+$('resumeBtn').addEventListener('click',()=>{if(!saved)return;session=saved;saved=null;E.tick(session);if(session.status==='finished')renderResults();else{renderQuestion();startTimer();saveNow();}});
+$('discardBtn').addEventListener('click',async()=>{if(await ask('Discard the saved session?','The locally saved questions, answers and working will be removed.','Discard save'))dropSaved();});
+$('confirmCancel').addEventListener('click',()=>$('confirmDialog').close('cancel'));$('confirmOK').addEventListener('click',()=>$('confirmDialog').close('ok'));
+document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>$(b.dataset.close).close()));
+$('displayBtn').addEventListener('click',()=>$('displayDialog').showModal());for(const id of ['themeSelect','sizeSelect','overlaySelect'])$(id).addEventListener('change',applyPreferences);
+$('fsBtn').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if(document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen();else toast('Full screen is not supported here. Try your browser’s full-screen command.');}catch{toast('Full screen was not allowed by this browser. You can continue in the normal window.');}});
+document.addEventListener('fullscreenchange',()=>$('fsBtn').textContent=document.fullscreenElement?'Exit full screen':'⛶  Full screen');
+$('zoomBtn').addEventListener('click',openDiagram);$('writeBtn').addEventListener('click',()=>openWork());$('workMini').addEventListener('click',()=>{if(drawingReadOnly){const q=E.generateQuestion(drawingItem.type,drawingItem.seed);$('largeDiagramTitle').textContent=q.diagram.caption;$('largeDiagram').innerHTML=diagramSVG(q,'large');$('diagramDialog').showModal();}else openDiagram();});$('workMini').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('workMini').click();}});
+$('typedNote').addEventListener('input',()=>{if(!session)return;session.items[session.index].note=$('typedNote').value;saveSoon();});
+$('workCanvas').addEventListener('pointerdown',event=>{if(drawingReadOnly||event.button!==0||currentStroke)return;if(drawingItem.strokes.length>=150){toast('This working space is full. Undo or clear some strokes before adding more.');return;}event.preventDefault();$('workCanvas').setPointerCapture(event.pointerId);currentStroke={tool:penTool,colour:colours[penColour],width:penTool==='eraser'?22:widths[penSize],points:[pointerPoint(event)]};refreshCanvas();});
+$('workCanvas').addEventListener('pointermove',event=>{if(!currentStroke)return;event.preventDefault();const point=pointerPoint(event),last=currentStroke.points.at(-1);if(Math.hypot((point[0]-last[0])*canvasWidth,(point[1]-last[1])*canvasHeight)<1.2)return;if(currentStroke.points.length>=1500)currentStroke.points=currentStroke.points.filter((_,i)=>i%2===0);currentStroke.points.push(point);refreshCanvas();});
+$('workCanvas').addEventListener('pointerup',finishStroke);$('workCanvas').addEventListener('pointercancel',finishStroke);$('workCanvas').addEventListener('lostpointercapture',finishStroke);
+$('workDialog').addEventListener('close',()=>{finishStroke();saveNow();drawingItem=null;});
+$('penBtn').addEventListener('click',()=>{penTool='pen';$('penBtn').setAttribute('aria-pressed','true');$('eraserBtn').setAttribute('aria-pressed','false');});
+$('eraserBtn').addEventListener('click',()=>{penTool='eraser';$('penBtn').setAttribute('aria-pressed','false');$('eraserBtn').setAttribute('aria-pressed','true');});
+$('penColourBtn').addEventListener('click',()=>{penColour=(penColour+1)%colours.length;$('penColourBtn').textContent='Ink: '+colourNames[penColour];$('penColourBtn').setAttribute('aria-label','Change pen colour. Current: '+colourNames[penColour]);});
+$('penWidthBtn').addEventListener('click',()=>{penSize=(penSize+1)%widths.length;$('penWidthBtn').textContent='Width: '+widthNames[penSize];});
+$('undoBtn').addEventListener('click',undo);$('redoBtn').addEventListener('click',redo);$('gridBtn').addEventListener('click',()=>{const plain=$('canvasShell').classList.toggle('plain');$('gridBtn').setAttribute('aria-pressed',String(!plain));});
+$('clearCanvasBtn').addEventListener('click',async()=>{if(!drawingItem?.strokes.length)return;if(await ask('Clear handwritten working?','All pen and eraser strokes for this question will be removed. Typed working is kept.','Clear working')){drawingItem.strokes=[];redoStack=[];refreshCanvas();saveSoon();}});
+$('csvBtn').addEventListener('click',()=>download('civil-engineering-trigonometry-results.csv',resultsCSV(),'text/csv;charset=utf-8'));
+$('copyBtn').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(summaryText());toast('Summary copied.');}catch{const ta=document.createElement('textarea');ta.value=summaryText();ta.style.cssText='position:fixed;left:0;top:0;width:1px;height:1px';document.body.append(ta);ta.select();let copied=false;try{copied=document.execCommand('copy');}catch{}ta.remove();toast(copied?'Summary copied.':'Copy was blocked. Use Export results (CSV) instead.');}});
+$('printBtn').addEventListener('click',()=>window.print());
+$('expandReviewBtn').addEventListener('click',()=>{const open=$('expandReviewBtn').textContent==='Expand all';document.querySelectorAll('.review-item').forEach(d=>d.open=open);$('expandReviewBtn').textContent=open?'Collapse all':'Expand all';});
+$('reviewList').addEventListener('click',event=>{const b=event.target.closest('.review-work');if(b)openWork(session.items[Number(b.dataset.index)],true);});
+let printOpen=[];window.addEventListener('beforeprint',()=>{printOpen=[...document.querySelectorAll('.review-item')].map(d=>d.open);document.querySelectorAll('.review-item').forEach(d=>d.open=true);});window.addEventListener('afterprint',()=>document.querySelectorAll('.review-item').forEach((d,i)=>d.open=printOpen[i]??false));
+document.addEventListener('keydown',event=>{
+ if(event.key==='Enter'&&event.repeat){event.preventDefault();return;}
+ if($('workDialog').open&&!$('confirmDialog').open&&!['INPUT','TEXTAREA','SELECT'].includes(event.target.tagName)&&(event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='z'){event.preventDefault();if(event.shiftKey)redo();else undo();}
+});
+document.addEventListener('visibilitychange',()=>{if(!session)return;if(document.hidden)saveNow();else if(E.tick(session)){renderResults();saveNow();}else updateTime();});
+window.addEventListener('beforeunload',saveNow);
+new ResizeObserver(resizeCanvas).observe($('canvasShell'));
+window.addEventListener('error',event=>{$('fatalError').hidden=false;$('fatalError').textContent='Something unexpected interrupted this page. Your saved session has not been deleted. Reload to try restoring it. '+(event.message||'');});
+window.addEventListener('unhandledrejection',event=>{$('fatalError').hidden=false;$('fatalError').textContent='A browser action could not be completed. Your current answers have not been deliberately cleared. '+String(event.reason?.message||event.reason||'');});
+try{const prefs=JSON.parse(localStorage.getItem(PREFKEY)||'{}');if(['light','dark'].includes(prefs.theme))$('themeSelect').value=prefs.theme;if(['normal','large'].includes(prefs.size))$('sizeSelect').value=prefs.size;if(['none','cream','blue'].includes(prefs.overlay))$('overlaySelect').value=prefs.overlay;}catch{}
+applyPreferences();updateModeFields();initialSavedSession();
+$('contentList').innerHTML=Array.from({length:10},(_,i)=>`<li>${esc(E.generateQuestion(i,1234).title)}</li>`).join('');
+// Read-only diagnostic snapshot for reproducible classroom testing; not an assessment security boundary.
+window.GeometryWorkshop=Object.freeze({snapshot:()=>session?JSON.parse(E.serialize(session)):null,diagramSVG,resultsCSV});
+})();
+</script>
+</body></html>
